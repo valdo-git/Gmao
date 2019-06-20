@@ -1,0 +1,48 @@
+
+
+/* for the sidebar*/
+#wrapper{padding:90px 15px;}
+.navbar-expand-lg .navbar-nav.side-nav{flex-direction: column;}
+.card{margin-bottom: 15px; border-radius:0; box-shadow: 0 3px 5px rgba(0,0,0,.1); }
+.header-top{box-shadow: 0 3px 5px rgba(0,0,0,.1)}
+.leftmenutrigger{display: none}
+@media(min-width:992px) {
+    .leftmenutrigger{display: block;margin: 7px 20px 4px 0;cursor: pointer;}
+    #wrapper{padding: 90px 15px 15px 15px; }
+    .navbar-nav.side-nav.open {left:0;}
+    .navbar-nav.side-nav{background: #585f66;box-shadow: 2px 1px 2px rgba(0,0,0,.1);position:fixed;top:56px;flex-direction: column!important;left:-220px;width:200px;overflow-y:auto;bottom:0;overflow-x:hidden;padding-bottom:40px}
+}
+.animate{-webkit-transition:all .3s ease-in-out;-moz-transition:all .3s ease-in-out;-o-transition:all .3s ease-in-out;-ms-transition:all .3s ease-in-out;transition:all .3s ease-in-out}
+
+.footer
+{position:absolute;
+    width:100%;
+    bottom:0;
+    height: 50px;
+    background:grey;
+    text-decoration-color: black;
+    padding:10px 0
+
+}
+.Specialcard {
+    background-color: rgba(245, 245, 245, 0.0) !important;
+    box-shadow: 5px 10px 8px #888888;
+}
+
+body,html{
+    height: 100%;
+}
+.bg {
+    /* Full height */
+    height: 100%;
+
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+/*
+ height: 50px; /* Set the fixed height of the footer here
+line-height: 60px; *//* Vertically center the text there
+background-color: lightgray;*/
