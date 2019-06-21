@@ -34,30 +34,30 @@ class ProgramsController extends Controller
     public function create(Request $request)
     {
         $idMat = $request->idMat;
-      return view('pagesGT.ProgOps.createProg')->with('idMat',$idMat);
+        return view('pagesGT.ProgOps.createProg')->with('idMat',$idMat);
         //return redirect( route('programs.operations.index',['idMat'=> $request->idMat]) );
     }
 
-    public function preStore(ProgramFormRequest $request)
+    public function preStore(ProgramFormRequest $request)// pour pré-enregistrer les infos du prog d'entretien
     {
         $prog = new Program();
         $idprog =  $prog::All()->max('id')+1;
         if (isset($request->date_edition))
             $date_edition = $request->date_edition;
         else
-             $date_edition = today();
-        $date_edition = Carbon::parse($date_edition);
-        $date_edition = $date_edition->format('d-m-Y');
-        $collection = collect([
-            'num_prog' =>  $request->num_prog,
-            'nom_programme' => $request->nom_programme,
-            'age' => $request->nom_programme,
-            'date_edition' => $date_edition,
-            'doc_ref' => $request->doc_ref,
-            'materiel_id' => $request->idMat,
-            'idProg' => $idprog
+            $date_edition = today();
+            $date_edition = Carbon::parse($date_edition);
+            $date_edition = $date_edition->format('d-m-Y');
+            $collection = collect([
+                'num_prog' =>  $request->num_prog,
+                'nom_programme' => $request->nom_programme,
+                //'age' => $request->nom_programme,
+                'date_edition' => $date_edition,
+                'doc_ref' => $request->doc_ref,
+                'materiel_id' => $request->idMat,
+                'idProg' => $idprog
 
-        ]);
+            ]);
         $collection->toArray();
         $collectionfreq = createCollectionTypeUnitFrequences();
        // $collectionfreq->get();
@@ -79,6 +79,7 @@ class ProgramsController extends Controller
         $prog = new Program();
         $ops = new Operation();
         $freq1 = new Echeance();
+        $mat = new Materiel();
 
         ///// ENREGISTREMENT DES INFOS PROGRAMME
         $prog->materiel_id = $request->idMat;
@@ -92,6 +93,13 @@ class ProgramsController extends Controller
         $prog->save();
 
         $idProg =  $prog::All()->max('id');
+
+        /// mise à jour de la disponibilité du matériel git add le 21/06/2019
+        $mat = $mat->find($prog->materiel_id);
+        $mat->disponibilite = 1;
+        $mat->update();
+
+        /// faire attention et penser à vérifier que le matériel n'est pas
 
         ////ENREGISTREMENT DE L'OPERATION 1
         $ops->code = $request->code;
@@ -123,7 +131,7 @@ class ProgramsController extends Controller
             $freq2->operation_id = $idOps;
             $freq2->save();
         }
- $mat = new Materiel(); $mat = $mat->find($prog->materiel_id); $mat->disponibilite = 1;
+
        // $listops = $prog->find($idProg)->operations()->get();
 
         //Flashy::success('Enregistrement réalisé avec succès !!!');
