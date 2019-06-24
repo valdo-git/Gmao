@@ -29,15 +29,51 @@ class MaterielsController extends Controller
         $materiels2 = $materiel->where('idgrpe',2)->paginate(3);
         $materiels3 = $materiel->where('idgrpe',3)->paginate(3);
 
-        if ($request->ajax()) {
+        /*if ($request->ajax()) {
             return [
                 'html1' => view('pagesGT.Materiel.indexMatGrpe1', compact('materiels'))->render(),
                 'html2' => view('pagesGT.Materiel.indexMatGrpe2', compact('materiels2'))->render(),
                 'html3' => view('pagesGT.Materiel.indexMatGrpe3', compact('materiels3'))->render()
             ];
-        }
+        }*/
 
-        return view('pagesGT.Materiel.indexMat', compact('materiels','materiels2','materiels3'));
+        return view('pagesGT.Materiel.listEnginRoulant', compact('materiels'));
+
+    }
+
+    public function listSpecial(Request $request)//pour la gestion technique
+    {
+        $materiel = new Materiel();
+        $materiels2 = $materiel->where('idgrpe',2)->paginate(3);
+       
+
+        /*if ($request->ajax()) {
+            return [
+                'html1' => view('pagesGT.Materiel.indexMatGrpe1', compact('materiels'))->render(),
+                'html2' => view('pagesGT.Materiel.indexMatGrpe2', compact('materiels2'))->render(),
+                'html3' => view('pagesGT.Materiel.indexMatGrpe3', compact('materiels3'))->render()
+            ];
+        }*/
+
+        return view('pagesGT.Materiel.listEquipSpecial', compact('materiels2'));
+
+    }
+
+    public function listEntretien(Request $request)//pour la gestion technique
+    {
+        $materiel = new Materiel();
+        $materiels3 = $materiel->where('idgrpe',3)->paginate(3);
+       
+
+        /*if ($request->ajax()) {
+            return [
+                'html1' => view('pagesGT.Materiel.indexMatGrpe1', compact('materiels'))->render(),
+                'html2' => view('pagesGT.Materiel.indexMatGrpe2', compact('materiels2'))->render(),
+                'html3' => view('pagesGT.Materiel.indexMatGrpe3', compact('materiels3'))->render()
+            ];
+        }*/
+
+        return view('pagesGT.Materiel.listEntretien', compact('materiels3'));
 
     }
 
@@ -62,7 +98,24 @@ class MaterielsController extends Controller
         //$listemp = new Emplacement();
         $listemp = Emplacement::all();
         $listatelier = Atelier::all();
-        return view('pagesGT.Materiel.createMat',compact('listemp','listatelier'));
+        return view('pagesGT.Materiel.createMatRoulant',compact('listemp','listatelier'));
+    }
+
+
+    public function create1()
+    {
+        //$listemp = new Emplacement();
+        $listemp = Emplacement::all();
+        $listatelier = Atelier::all();
+        return view('pagesGT.Materiel.createMatSpecial',compact('listemp','listatelier'));
+    }
+
+    public function create2()
+    {
+        //$listemp = new Emplacement();
+        $listemp = Emplacement::all();
+        $listatelier = Atelier::all();
+        return view('pagesGT.Materiel.createMatEntretien',compact('listemp','listatelier'));
     }
 
     /**
