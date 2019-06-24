@@ -130,26 +130,85 @@ return [
             'url'  => '/',
             'icon'    => 'home',
         ],
+        //Partie gestion de matériel 
         [
             'text'    => 'Gestion matériel',
             'icon'    => 'share',
             'can'  => 'GT-manager',
+
+            //Sous menu matériel
             'submenu' => [
                 [
                     'text' => 'Nouveau matériel',
-                    'url'  => '/Materiels/create',
+                    
+
+                    //sous menu 
+                    'submenu' => [
+                        [
+                        'text' => 'Engin roulant',
+                        'url' => '/Materiels/create',
+                        ],
+
+                        [
+                        'text' => 'Equipement spécial',
+                        'url' => '/Materiels/create1',
+                        ], 
+
+                        [
+                        'text' => 'Equipement d\'entretien',
+                        'url' => '/Materiels/create2',
+                        ] 
+                    ]
                 ],
+
                 [
                     'text' => 'Liste matériel',
-                    'url'  => '/Materiels',
+                    'url'  => '#',
+
+                    //sous menu 
+                    'submenu' => [
+                        [
+                        'text' => 'Engin roulant',
+                        'url' => '/Materiels',
+                        ],
+
+                        [
+                        'text' => 'Equipement spécial',
+                        'url' => 'Materiels/listSpecial',
+                        ], 
+
+                        [
+                        'text' => 'Equipement d\'entretien',
+                        'url' => '/Materiels/listEntretien',
+                        ] 
+                    ]
                 ],
+
                 [
                     'text' => 'Ateliers',
-                    'url'  => '#',
+                    'url'  => '/Ateliers',
+                    //sous menu atelier
+                  /*  'submenu' => [
+                        [
+                        'text' => 'Créer Atelier',
+                        'url' => '#',
+                        ],
+
+                        [
+                        'text' => 'Modifier Atelier',
+                        'url' => '#',
+                        ], 
+
+                        [
+                        'text' => 'Supprimer Atelier',
+                        'url' => '#',
+                        ] 
+                    ]*/
                 ],
+
                 [
                     'text' => 'Emplacements',
-                    'url'  => '#',
+                    'url'  => '/Emplacements',
                 ],
             ],
         ],
