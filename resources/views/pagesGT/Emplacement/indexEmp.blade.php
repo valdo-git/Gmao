@@ -1,12 +1,14 @@
-@extends('layouts.masterGT')
+@extends('adminlte::page')
 @section('title')
-    Liste des ateliers
+    Liste des emplacements
     @endsection
 
     @section('content')
    <!-- ============================================================== -->
     <!-- Formulaire modal d'ajout d'un emplacement -->
     <!-- ============================================================== -->
+
+    <div class="box box-solid box-body">
     <div class="modal fade" id="myModalEmp">
         <div class="modal-dialog" >
             <div class="modal-content">
@@ -21,7 +23,7 @@
                     <div class="modal-body">
                         {!! csrf_field() !!}
                         <div class="row">
-                            <div class="col-sm">
+                            <div class="col-sm-5">
                                 <div class="card">
                                     <div class="card-body">
                                         <p >
@@ -146,7 +148,7 @@
             <div class="modal-content">
 
                 <div class="modal-header">
-                    <h5 class="modal-title">Modification atelier</h5>
+                    <h5 class="modal-title">Modification Emplacement</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -158,36 +160,30 @@
 
                     <div class="modal-body">
                             <div class="row">
-                                <div class="col-sm">
+                                <div class="col-sm-5">
                                     <div class="card">
                                         <div class="card-body">
                                             <p><input  type="hidden"  name="idModif" id="idModif" /></p>
 
-                                            <div class="input-group mb-3">
-                                                <div class="input-group-append">
-                                                    <span class="input-group-text" id="basic-addon3">Désignation : </span>
-                                                </div>
-                                                <input type="text"  class="form-control{{ $errors->has('designation') ? ' is-invalid' : '' }}" name="designation" id="desModif" />
+                                            <p>
+                                                
+                                                <input type="text"  class="form-control{{ $errors->has('designation') ? ' is-invalid' : '' }}" name="designation" id="desModif" placeholder="Désignation" />
 
-                                            </div>
+                                            <p>
 
-                                            <div class="input-group mb-3">
-                                                <div class="input-group-append">
-                                                    <span class="input-group-text" id="basic-addon3">Gisement : </span>
-                                                </div>
-                                                <input type="text" class="form-control" name="gisement" id="gisementModif"  />
+                                            <p>
+                                                
+                                                <input type="text" class="form-control" name="gisement" id="gisementModif"  placeholder="Gisement" />
 
-                                            </div>
+                                            <p>
 
 
-                                            <div class="input-group mb-3">
-                                                <div class="input-group-append">
-                                                    <span class="input-group-text" id="basic-addon3">Observations : </span>
-                                                </div>
-                                                <textarea  class="form-control" id="obsModif" name="observations" >
+                                            <p>
+                                                
+                                                <textarea  class="form-control" id="obsModif" name="observations" >Observations
 
                                                 </textarea>
-                                            </div>
+                                            </p>
 
                                         </div>
                                     </div>
@@ -203,6 +199,8 @@
             </div>
         </div>
     </div>
+
+</div>
     <!-- ============================================================== -->
     <!-- FIN Formulaire modal de modif d'un atelier -->
     <!-- ============================================================== -->

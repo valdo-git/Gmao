@@ -39,6 +39,22 @@ Route::middleware('auth')->group(function () {
     Route::get('/OpGT', 'AccueilGTController@index'//function () { }
    )->name('homeGT');
 
+    /////routes pour ecran creation d'equipement special
+    Route::get('/Materiels/create1', 'MaterielsController@create1'//function () { }
+   );
+
+    /////routes pour ecran creation d'equipement d'entretien
+    Route::get('/Materiels/create2', 'MaterielsController@create2'//function () { }
+   );
+
+    /////routes pour ecran liste des équipements d'entretien
+    Route::get('/Materiels/listEntretien', 'MaterielsController@listEntretien'//function () { }
+   );
+
+    /////routes pour ecran des équipements scpéciaux
+    Route::get('/Materiels/listSpecial', 'MaterielsController@listSpecial'//function () { }
+   );
+
     // route pour affichage profil gt
     Route::get('/OpGT/profil', 'AccueilGTController@profil'//function () { }
     )->name('profilGT');
