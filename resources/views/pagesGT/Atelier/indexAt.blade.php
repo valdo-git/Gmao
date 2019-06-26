@@ -9,14 +9,10 @@
     <div class="modal fade" id="myModalAt">
         <div class="modal-dialog" >
             <div class="modal-content">
-                <div class="box-header with-border">
 
                     <div class="modal-header ">
-                        <h3 class="box-title">Création d'atelier</h3>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                </div>
+                        <h3 class="modal-title">Création d'atelier</h3>
+                    </div>
 
                     <form method="POST"  id="form-ops" class="form-horizontal" action="{{ route('Ateliers.store2') }}" >
                         <div class="modal-body">
@@ -52,21 +48,18 @@
                                                 @endforeach
                                             </select>
                                       -->
-
-                                       
-
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                    </div>
-                        <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary" name="newop">Enregistrer</button>
-                        <button type="reset" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-                    </div>
+                        </div>
+                            <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary" name="newop">Enregistrer</button>
+                            <button type="reset" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                        </div>
                     </form>
-                </div>
+
             </div>
         </div>
     </div>
@@ -164,14 +157,12 @@
 <div class="modal fade" id="myModalModifAt" role="dialog" aria-labelledby="myModalModifAt">
  <div class="modal-dialog" role="document">
      <div class="modal-content">
-         <div class="modal-header">
-             <h5 class="modal-title">Modification atelier</h5>
-             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                 <span aria-hidden="true">&times;</span>
-             </button>
+
+         <div class="modal-header ">
+             <h3 class="modal-title">Modification des infos d'atelier</h3>
          </div>
 
-         <form method="POST"  id="form-ops" action="{{ route('Ateliers.update','idAt') }}" >
+         <form method="POST"  id="form-ops"  class="form-horizontal" action="{{ route('Ateliers.update','idAt') }}" >
                  {!! csrf_field() !!}
                  <p><input  type="hidden" name='_method' value="PUT" /></p>
 
@@ -179,35 +170,36 @@
                      <div class="row">
                          <div class="col-sm">
                              <div class="card">
+
                                  <div class="card-body">
                                      <p><input  type="hidden"  name="idModif" id="idModif" /></p>
 
-                                     <div class="input-group mb-3">
-                                         <div class="input-group-append">
-                                             <span class="input-group-text" id="basic-addon3">Nom de l'atelier : </span>
+                                     <div class="form-group">
+                                             <label for="inputNomAt" class="col-sm-3 control-label">Nom l'atelier :</label>
+                                         <div class="col-sm-8">
+                                             <input type="text"  class="form-control" name="nom_atelier" id="nomatelierModif" />
                                          </div>
-                                         <input type="text"  class="form-control" name="nom_atelier" id="nomatelierModif" />
                                      </div>
 
-                                     <div class="input-group mb-3">
-                                         <div class="input-group-append">
-                                             <span class="input-group-text" id="basic-addon3">Grade et nom du chef d'atelier: </span>
+                                     <div class="form-group">
+                                         <label for="inputNomChiefAt" class="col-sm-3 control-label">Grade et nom du chef d'atelier:</label>
+                                         <div class="col-sm-8">
+                                             <input type="text" class="form-control" name="nom_chef" id="nomchefModif"/>
                                          </div>
-                                         <input type="text" class="form-control" name="nom_chef" id="nomchefModif"/>
                                      </div>
 
-                                     <div class="input-group mb-3">
-                                         <div class="input-group-append">
-                                             <span class="input-group-text" id="basic-addon3">Date de création enregistrée: </span>
+                                     <div class="form-group">
+                                         <label for="inputAncDateAt" class="col-sm-3 control-label">Date de création enregistrée :</label>
+                                         <div class="col-sm-8">
+                                             <input type="text" class="form-control" name="date_creation_p" id="datecreationModif" placeholder="oui"/>
                                          </div>
-                                         <input type="text" class="form-control" name="date_creation_p" id="datecreationModif" placeholder="oui"/>
                                      </div>
 
-                                     <div class="input-group mb-3">
-                                         <div class="input-group-append">
-                                             <span class="input-group-text" id="basic-addon3">Nouvelle date : </span>
+                                     <div class="form-group">
+                                             <label for="inputAncDateAt" class="col-sm-3 control-label">Nouvelle date : </label>
+                                         <div class="col-sm-8">
+                                            <input type="date" class="form-control" name="date_creation_n" />
                                          </div>
-                                         <input type="date" class="form-control" name="date_creation_n" />
                                      </div>
 
                                  </div>
