@@ -1,62 +1,70 @@
 @extends('adminlte::page')
-@section('title')
-    Liste des ateliers
-    @endsection
+@section('title', 'Liste des ateliers')
+    
 
     @section('content')
    <!-- ============================================================== -->
     <!-- Formulaire modal d'ajout d'un atelier -->
     <!-- ============================================================== -->
+    <div class="modal fade" id="myModalAt">
+        <div class="modal-dialog" >
+            <div class="modal-content">
 
-    <div class="box box-solid box-body">
-        <div class="modal fade" id="myModalAt">
-            <div class="modal-dialog" >
-                <div class="modal-content">
-
-                    <div class="modal-header">
-                        <h5 class="modal-title">Création atelier</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <form method="POST"  id="form-ops" action="{{ route('Ateliers.store2') }}" >
-                        <div class="modal-body">
-                            {!! csrf_field() !!}
-                            <div class="row">
-                                <div class="col-sm-5">
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <p>
-                                                
-                                                <input type="text" class="form-control" name="nom_atelier" id="nom_atelier" placeholder="Nom l'atelier" required>
-
-                                            </p>                                           
-
-                                            <p>
-                                                
-                                                <input type="text" class="form-control" name="nom_chef" id="nom_chef" placeholder="Grade et nom du chef d'atelier ">
-                                            </p>
-
-                                            <p>
-                                                
-                                                <input type="date" class="form-control" name="date_creation" id="date_creation" placeholder="Date de création ">
-                                            </p>
-
+                <div class="modal-header">
+                    <h5 class="modal-title">Création atelier</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form method="POST"  id="form-ops" action="{{ route('Ateliers.store2') }}" >
+                    <div class="modal-body">
+                        {!! csrf_field() !!}
+                        <div class="row">
+                            <div class="col-sm">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="input-group mb-3">
+                                           <div class="input-group-append">
+                                                <span class="input-group-text" id="basic-addon3">  *Nom l'atelier : </span>
+                                            </div>
+                                            <input type="text" class="form-control" name="nom_atelier" id="nom_atelier" placeholder="*Nom de l'atelier" required>
 
                                         </div>
+
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-append">
+                                                <span class="input-group-text" id="basic-addon3">  *Grade et nom du Chef d'atelier : </span>
+                                            </div>
+                                            <input type="text" class="form-control" name="nom_chef" id="nom_chef" placeholder="*Grade et nom du Chef d'atelier" required>
+
+                                            <select  name="nom_chef"  id="nom_chef" onselect="" class="custom-select " required >
+                                                @foreach($listeChefAt as $chef)
+                                                    <option value="{{$chef->nom_chef}}">{{$chef->nom_chef}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-append">
+                                                <span class="input-group-text" id="basic-addon3">Date de création : </span>
+                                            </div>
+                                            <input type="date" class="form-control" name="date_creation" id="date_creation">
+                                        </div>
+
+
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="modal-footer">
-                            <button type="submit" class="btn btn-primary" name="newop">Enregistrer</button>
-                            <button type="reset" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-                        </div>
-                    </form>
-                </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary" name="newop">Enregistrer</button>
+                        <button type="reset" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                    </div>
+                </form>
             </div>
         </div>
-    
+    </div>
     <!-- ============================================================== -->
     <!-- FIN Formulaire modal d'ajout d'un atelier -->
     <!-- ============================================================== -->
@@ -91,7 +99,7 @@
 
                  <th> Nom de l'atelier </th>
                  <th> Date de création </th>
-                 <th> Grade et Nom du chef d'atelier </th>
+                 <th> Nom du chef d'atelier </th>
                  <th> </th>
 
              </tr>
@@ -104,8 +112,8 @@
                      <td> {{   $at->nom_chef   }}</td>
 
                      <td>
-                     {{-- <a href="{{Route('Ateliers.edit',$at)}}" class="btn btn-primary btn-sm">Modifier</a>--}}
-                         <input type="button" class="btn btn-primary btn-sm"
+                        {{-- <a href="{{Route('Ateliers.edit',$at)}}" class="btn btn-primary btn-sm">Modifier</a>--}}
+                         <input type="button" class="btn btn-primary"
                                 data-myid="{{ $at->id }}"
                                 data-myname="{{ $at->nom_atelier }}"
                                 data-mycreateddate="{{ $at->date_creation }}"
@@ -148,86 +156,79 @@
 <!-- ============================================================== -->
 <!-- Formulaire modal de modif d'un atelier -->
 <!-- ============================================================== -->
+<div class="modal fade" id="myModalModifAt" role="dialog" aria-labelledby="myModalModifAt">
+ <div class="modal-dialog" role="document">
+     <div class="modal-content">
 
-<div class="box box-solid box-body">
-    <div class="modal fade" id="myModalModifAt" role="dialog" aria-labelledby="myModalModifAt">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
+         <div class="modal-header">
+             <h5 class="modal-title">Modification atelier</h5>
+             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                 <span aria-hidden="true">&times;</span>
+             </button>
+         </div>
 
-            <div class="modal-header">
-                <h5 class="modal-title">Modification atelier</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
+         <form method="POST"  id="form-ops" action="{{ route('Ateliers.update','idAt') }}" >
+                 {!! csrf_field() !!}
+                 <p><input  type="hidden" name='_method' value="PUT" /></p>
 
-            <form method="POST"  id="form-ops" action="{{ route('Ateliers.update','idAt') }}" >
-                    {!! csrf_field() !!}
-                    <p><input  type="hidden" name='_method' value="PUT" /></p>
+             <div class="modal-body">
+                     <div class="row">
+                         <div class="col-sm">
+                             <div class="card">
+                                 <div class="card-body">
+                                     <p><input  type="hidden"  name="idModif" id="idModif" /></p>
 
-                <div class="modal-body">
-                        <div class="row">
-                            <div class="col-sm-8 card card-body">
-                                
-                                    
-                                <p><input  type="hidden"  name="idModif" id="idModif" /></p>
+                                     <div class="input-group mb-3">
+                                         <div class="input-group-append">
+                                             <span class="input-group-text" id="basic-addon3">Nom de l'atelier : </span>
+                                         </div>
+                                         <input type="text"  class="form-control" name="nom_atelier" id="nomatelierModif" />
+                                     </div>
 
-                                <div class="input-group mb-3">
-                                    <div class="input-group-append">
-                                        <span class="input-group-text" id="basic-addon3">Nom de l'atelier : </span>
-                                    </div>
-                                    <input type="text"  class="form-control" name="nom_atelier" id="nomatelierModif" />
-                                </div>
+                                     <div class="input-group mb-3">
+                                         <div class="input-group-append">
+                                             <span class="input-group-text" id="basic-addon3">Grade et nom du chef d'atelier: </span>
+                                         </div>
+                                         <input type="text" class="form-control" name="nom_chef" id="nomchefModif"/>
+                                     </div>
 
-                                <div class="input-group mb-3">
-                                    <div class="input-group-append">
-                                        <span class="input-group-text" id="basic-addon3">Nom du chef d'atelier : </span>
-                                    </div>
+                                     <div class="input-group mb-3">
+                                         <div class="input-group-append">
+                                             <span class="input-group-text" id="basic-addon3">Date de création enregistrée: </span>
+                                         </div>
+                                         <input type="text" class="form-control" name="date_creation_p" id="datecreationModif" placeholder="oui"/>
+                                     </div>
 
-                                    <select  name="nom_chef"  id="nom_chef" onselect="" class="custom-select " required >
-                                        @foreach($listeChefAt as $chef)
-                                        <option value="{{$chef->grade.' '.$chef->name}}">{{$chef->grade}} {{$chef->name}}</option>
-                                        @endforeach
-                                    </select>
+                                     <div class="input-group mb-3">
+                                         <div class="input-group-append">
+                                             <span class="input-group-text" id="basic-addon3">Nouvelle date : </span>
+                                         </div>
+                                         <input type="date" class="form-control" name="date_creation_n" />
+                                     </div>
 
-                                </div>
+                                 </div>
+                             </div>
+                         </div>
+                     </div>
 
-                                <div class="input-group mb-3">
-                                            <div class="input-group-append">
-                                                <span class="input-group-text" id="basic-addon3">Date de création enregistrée: </span>
-                                            </div>
-                                            <input type="text" class="form-control" name="date_creation_p" id="datecreationModif" placeholder="oui"/>
-                                        </div>
-
-                                <div class="input-group mb-3">
-                                            <div class="input-group-append">
-                                                <span class="input-group-text" id="basic-addon3">Nouvelle date : </span>
-                                            </div>
-                                            <input type="date" class="form-control" name="date_creation_n" />
-                                        </div>
-
-                                    
-                            </div>
-                            
-                        </div>
-
-                </div>
-                <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary" name="newop">Valider les modifications</button>
-                    <button type="reset" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-                </div>
-            </form>
-        </div>
-    </div>
-    </div>
-    </div>
+             </div>
+             <div class="modal-footer">
+                 <button type="submit" class="btn btn-primary" name="newop">Valider les modifications</button>
+                 <button type="reset" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+             </div>
+         </form>
+     </div>
+ </div>
+</div>
 <!-- ============================================================== -->
 <!-- FIN Formulaire modal de modif d'un atelier -->
 <!-- ============================================================== -->
 
-</div>
+
 @endsection
-@section('scripts')
+
+@section('js')
+
 <script>
  $('#myModalModifAt').on('show.bs.modal', function (event) {
      var button = $(event.relatedTarget) // Button that triggered the modal
@@ -242,4 +243,5 @@
      modal.find('.modal-body #nomchefModif').val(valchiefName)
  });
 </script>
+
 @endsection
