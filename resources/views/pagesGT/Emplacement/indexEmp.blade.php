@@ -13,28 +13,47 @@
         <div class="modal-dialog" >
             <div class="modal-content">
 
-                <div class="modal-header">
-                    <h5 class="modal-title">Création emplacement</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <form method="POST"  id="form-ops" action="{{ route('Emplacements.store2') }}" >
+                <div class="box-header with-border">
+
+                    <div class="modal-header">
+                        <h5 class="modal-title">Création emplacement</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form method="POST"  id="form-ops" class="form-horizontal" action="{{ route('Emplacements.store2') }}" >
                     <div class="modal-body">
                         {!! csrf_field() !!}
                         <div class="row">
-                            <div class="col-sm-5">
+                            <div class="col-sm">
                                 <div class="card">
                                     <div class="card-body">
-                                        <p >
-                                            <input type="text" class="form-control" name="designation" id="designation" placeholder="*Désignation de l'emplacement" required>
-                                        </p>
-                                        <p >
-                                            <input type="text" class="form-control" name="gisement" id="gisement" placeholder="*Gisement" required>
-                                        </p>
-                                        <p >
-                                            <textarea  class="form-control" name="observations" id="observations" >Obsevations sur l'emplacement</textarea>
-                                        </p>
+
+                                        <div class="form-group">
+                                            <label for="desig" class="col-sm-3 control-label">*Désignation de l'emplacement :</label>
+                                            <div class="col-sm-9">
+                                                <input type="text" class="form-control" id="designation"  name="designation" placeholder="*Désignation de l'emplacement" required>
+                                            </div>
+                                        </div>
+
+
+                                       <div class="form-group">
+                                            <label for="gise" class="col-sm-3 control-label">*Gisement :</label>
+                                            <div class="col-sm-9">
+                                                <input type="text" class="form-control" id="gisement"  name="gisement" placeholder="*Gisement" required>
+                                            </div>
+                                        </div>
+
+                                        
+
+                                        <div class="form-group">
+                                            <label for="observ" class="col-sm-3 control-label">*Observations:</label>
+                                            <div class="col-sm-9">
+                                                <textarea  class="form-control" name="observations" id="observations" >Obsevations sur l'emplacement</textarea>
+                                            </div>
+                                        </div>
+
+                                        
 
                                     </div>
                                 </div>
@@ -45,7 +64,8 @@
                         <button type="submit" class="btn btn-primary" name="newop">Enregistrer</button>
                         <button type="reset" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
                     </div>
-                </form>
+                    </form>
+                </div>
             </div>
         </div>
     </div>

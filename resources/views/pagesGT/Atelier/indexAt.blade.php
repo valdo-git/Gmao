@@ -24,19 +24,19 @@
 
                                         <div class="form-group">
                                             <label for="inputNomAt" class="col-sm-3 control-label">*Nom l'atelier :</label>
-                                            <div class="col-sm-9">
+                                            <div class="col-sm-8">
                                                 <input type="text" class="form-control" id="nom_atelier"  name="nom_atelier" placeholder="*Nom de l'atelier" required>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label for="inputNomChiefAt" class="col-sm-3 control-label">*Grade et nom du Chef d'atelier :</label>
-                                            <div class="col-sm-9">
+                                            <div class="col-sm-8">
                                                 <input type="text" class="form-control" name="nom_chef" id="nom_chef" placeholder="*Grade et nom du Chef d'atelier" required>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label for="inputNomAt" class="col-sm-3 control-label">Date de création :</label>
-                                            <div class="col-sm-9">
+                                            <div class="col-sm-8">
                                                 <input type="date" class="form-control" name="date_creation" id="date_creation">
                                             </div>
                                         </div>
