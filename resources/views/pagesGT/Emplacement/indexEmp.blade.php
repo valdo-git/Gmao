@@ -16,7 +16,7 @@
                 <div class="box-header with-border">
 
                     <div class="modal-header">
-                        <h5 class="modal-title">Création emplacement</h5>
+                        <h3 class="modal-title">Création emplacement</h3>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -168,42 +168,47 @@
             <div class="modal-content">
 
                 <div class="modal-header">
-                    <h5 class="modal-title">Modification Emplacement</h5>
+                    <h3 class="modal-title">Modification Emplacement</h3>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
 
-                <form method="POST"  id="form-ops" action="{{ route('Emplacements.update','idAt') }}" >
+                <form method="POST"  id="form-ops" class="form-horizontal" action="{{ route('Emplacements.update','idAt') }}" >
                         {!! csrf_field() !!}
                         <p><input  type="hidden" name='_method' value="PUT" /></p>
 
                     <div class="modal-body">
                             <div class="row">
-                                <div class="col-sm-5">
+                                <div class="col-sm">
                                     <div class="card">
                                         <div class="card-body">
+
                                             <p><input  type="hidden"  name="idModif" id="idModif" /></p>
 
-                                            <p>
-                                                
-                                                <input type="text"  class="form-control{{ $errors->has('designation') ? ' is-invalid' : '' }}" name="designation" id="desModif" placeholder="Désignation" />
+                                            <div class="form-group">
+                                                <label for="inputDes" class="col-sm-3 control-label">*Désignation :</label>
+                                                <div class="col-sm-8">
+                                                    <input type="text"  class="form-control{{ $errors->has('designation') ? ' is-invalid' : '' }}" name="designation" id="desModif" placeholder="Désignation" />
+                                                </div>
+                                            </div>
+                                        
 
-                                            <p>
+                                            <div class="form-group">
+                                                <label for="inputGise" class="col-sm-3 control-label">*Gisement :</label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" class="form-control" name="gisement" id="gisementModif"  placeholder="Gisement" />
+                                                </div>
+                                            </div>
 
-                                            <p>
-                                                
-                                                <input type="text" class="form-control" name="gisement" id="gisementModif"  placeholder="Gisement" />
+                                            <div class="form-group">
+                                                <label for="inputObs" class="col-sm-3 control-label">*Observations :</label>
+                                                <div class="col-sm-8">
+                                                    <textarea  class="form-control" id="obsModif" name="observations" >Observations
 
-                                            <p>
-
-
-                                            <p>
-                                                
-                                                <textarea  class="form-control" id="obsModif" name="observations" >Observations
-
-                                                </textarea>
-                                            </p>
+                                                    </textarea>
+                                                </div>
+                                            </div>
 
                                         </div>
                                     </div>
