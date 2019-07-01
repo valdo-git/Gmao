@@ -18,7 +18,7 @@ class CreateEcheancesTable extends Migration
             $table->integer('valeur');
             $table->string('unite');
             $table->string('typeecheance');
-            $table->string('typeecheance');
+            //$table->string('typeecheance');
            // $table->timestamps();
         });
     }
