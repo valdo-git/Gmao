@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddOprationsidToEcheancesTable extends Migration
+class OperationsOrdres extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,7 @@ class AddOprationsidToEcheancesTable extends Migration
      */
     public function up()
     {
-        Schema::table('echeances', function (Blueprint $table) {
-            $table->integer('operation_id');
-        });
+        //
     }
 
     /**
@@ -25,8 +23,6 @@ class AddOprationsidToEcheancesTable extends Migration
      */
     public function down()
     {
-        Schema::table('echeances', function (Blueprint $table) {
-            //
-        });
+        //
     }
 }

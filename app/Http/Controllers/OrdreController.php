@@ -30,6 +30,7 @@ class OrdreController extends Controller
         $listordre =  $listordre->paginate();
         return view('pagesGT.Ordre.index',compact('listordre','program','mat','attente'));
     }
+    
     public function indexDV(Request $request)
     {
         //dd('pour la liste des ordres de travail liés à un DV, au niv du germac');

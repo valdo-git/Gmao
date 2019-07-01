@@ -28,7 +28,7 @@ class ProgramsOperationsController extends Controller
         $listops =  $listops->paginate(5);
         $collectionfreq = createCollectionTypeUnitFrequences();//la collection des frequences et des unités
        // Flashy::Success('Opération enregistrée avec succès !!!');
-        return view('PagesGT.ProgOps.createOpsProg',compact('program','listops','collectionfreq'));
+        return view('pagesGT.ProgOps.createOpsProg',compact('program','listops','collectionfreq'));
     }
 
     /**
@@ -105,7 +105,7 @@ class ProgramsOperationsController extends Controller
         $listops = $program->operations()->get();// liste des opérations du programme
         $listops =  $listops->paginate(5);
         Flashy::Success('Opération enregistrée avec succès !!!');
-        return view('PagesGT.ProgOps.createOpsProg',compact('program','listops','collectionfreq'));
+        return view('pagesGT.ProgOps.createOpsProg',compact('program','listops','collectionfreq'));
            // return redirect( route('programs.operations.index',['idProg'=> $id]) );
 
     }
