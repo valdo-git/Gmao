@@ -120,6 +120,10 @@
 
                             <td>
                                {{-- <a href="{{Route('Ateliers.edit',$at)}}" class="btn btn-primary btn-sm">Modifier</a>--}}
+                                <form action="{{ Route('Emplacements.destroy',$em) }}"
+                                      class="d-inline-block"
+                                      method="post">
+
                                 <input type="button" class="btn btn-primary btn-sm"
                                        data-myid="{{ $em->id }}"
                                        data-mydes="{{ $em->designation }}"
@@ -127,19 +131,18 @@
                                        data-myobs="{{ $em->observations }}"
                                 data-toggle="modal" data-target="#myModalModifEmp"  value='Modifier'/>
 
-
                                 @if ($em->materiels()->get()->isNotEmpty())
                                     <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Impossible de supprimer cet emplacement">
-                                        <button class="btn btn-danger btn-sm" style="pointer-events: none;"  disabled>Supprimer</button>
+                                        <button class="btn btn-danger btn-sm" style="pointer-events: none;"  disabled> <i class="icon ion-android-delete"></i> Supprimer</button>
                                     </span>
                                 @else
-                                    <form action="{{ Route('Emplacements.destroy',$em) }}"
-                                          method="post"
-                                          class="d-inline-block"
-                                          onclick="return confirm('Voulez-vous vraiment supprimer cet atelier ?')">
+
                                         {{csrf_field()}}
                                         {{method_field('DELETE')}}
-                                        <input type="submit" class=" btn btn-danger btn-sm" value="Supprimer"/>
+                                        <button type="submit" class="btn btn-danger btn-sm"
+                                                onclick="return confirm('Voulez-vous vraiment supprimer cet atelier ?')">
+                                             <i class="icon ion-android-delete"></i> Supprimer
+                                        </button>
                                         {{-- <input type="hidden" name='idExp' value="{{ $exp->id }}" /> --}}
                                     </form>
                                 @endif
