@@ -85,7 +85,7 @@
                                 <td>
                                     <div class="form-group">
                                         <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" name="operations[]" value="{{$ops->id}}" class="custom-control-input" id="customCheck{{$ops->id}}" >
+                                            <input type="checkbox" checked name="operations[]" value="{{$ops->id}}" class="custom-control-input" id="customCheck{{$ops->id}}" >
                                             <label class="custom-control-label" for="customCheck{{$ops->id}}"></label>
                                         </div>
                                     </div>
@@ -102,10 +102,11 @@
             <!-- ============================================================== -->
             <div class="box-footer">
                 <button type="reset" class="btn btn-default pull-left"><i class="fa fa-remove">&nbsp;</i>Annuler</button>
-                <button  id="myBtn" type="submit" class="btn btn-primary pull-right">
+                <button  id="myBtn" type="submit" class="btn btn-primary pull-right" >
                     <i class="fa fa-check">&nbsp;</i>Valider les modifications</button>
             </div>
         </div>
     </form>
 @stop
+
 

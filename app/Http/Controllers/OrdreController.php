@@ -10,7 +10,9 @@ use Illuminate\Http\Request;
 use App\Materiel;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
 use MercurySeries\Flashy\Flashy;
+
 
 class OrdreController extends Controller
 {
@@ -174,12 +176,18 @@ class OrdreController extends Controller
      */
     public function edit($id)
     {
+        //selection des operations qui ont pour l'ordre $id
+       // $id_op = DB::table('cartes')->select('operation_id')->where('ordre_id', $id)->get();
+
+       // dd($id_op);
+
         $ordreToModify = Ordre::find($id);
         $uneops = $ordreToModify->operations()->first();
         $idprog = Operation::find($uneops->id)->program_id;
         //dd($idprog);
         $prog = Program::find($idprog);
         $listops = $prog->operations()->get();
+
         return view('pagesGT.Ordre.editOrdre',compact('listops','ordreToModify'));
 
     }
