@@ -76,7 +76,19 @@
                                 <td> {{ $ops->designation }}</td>
                                 <td>
                                     @php
-                                    $echeances = $ops->echeances()->get();
+                                        $echeances = $ops->echeances()->get();
+
+                                        $opsExiste = $listOpOt->contains($ops->id);
+
+                                        if ($opsExiste) {
+
+                                            $check ='checked';
+                                        }
+
+                                        else  {
+                                            $check ='';
+                                        }
+
                                     @endphp
                                     @foreach($echeances as $echeance)
                                         <li>{{$echeance->valeur .' '. $echeance->unite }}</li>
@@ -85,7 +97,7 @@
                                 <td>
                                     <div class="form-group">
                                         <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" checked name="operations[]" value="{{$ops->id}}" class="custom-control-input" id="customCheck{{$ops->id}}" >
+                                            <input type="checkbox"  {{ $check }} name="operations[]" value="{{$ops->id}}" class="custom-control-input" id="customCheck{{$ops->id}}" >
                                             <label class="custom-control-label" for="customCheck{{$ops->id}}"></label>
                                         </div>
                                     </div>
