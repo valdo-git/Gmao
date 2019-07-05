@@ -36,7 +36,10 @@
                                 <select  name="select_mat" id="select_mat" onselect=""  class="form-control"  >
                                     <optgroup label="-- Selectionner le matériel --" ></optgroup>
 
+                                    <option> </option>
+
                                     <optgroup label="Engins roulants">
+
                                         @foreach($materiels1 as $mat1)
                                             <option value="{{$mat1->numImmat}}">{{$mat1->designation}}</option>
                                         @endforeach
@@ -68,16 +71,5 @@
 
 
 
-
-@section('js')
-    <script>
-        $(document).ready(function(){
-            $("#select_mat").change(function(){
-               var valSelect = $("#select_mat").val();
-                $("#num_mat").val(valSelect);
-            });
-        });
-    </script>
-    @endsection
 
 
