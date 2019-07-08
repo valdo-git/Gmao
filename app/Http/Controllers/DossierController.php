@@ -71,18 +71,16 @@ class DossierController extends Controller
         $program = new Program();
         $collectionOrdreMat = new Collection();
 
-        //$numImmat = $request->select_mat;
-        //$codeProduit = $request->num_mat;
-
         //On vérifie les champs ont été renseignés
-
         if(empty($request->select_mat) && empty($request->num_mat)){
             Flashy::error('Veuillez saisir un code produit, un numéro d\'immatriculation ou selectionner un materiel!!!');
                     return back();
         }
 
-      
-
+        if(!empty($request->select_mat) && !empty($request->num_mat)){
+            Flashy::error('Veuillez saisir une seule valeur !!!');
+            return back();
+        }
 
         if (!empty($request->select_mat) && empty($request->num_mat)) {
             $nuMat = $request->select_mat;
@@ -91,13 +89,11 @@ class DossierController extends Controller
             $nuMat = $request->num_mat;
         }
 
-
         // on retrouve le matériel choisi
        $mat = $materiel->Where('numImmat',$nuMat)
             ->orWhere('codeProduit',$nuMat)
             ->get();
-            //dd($mat);
-            
+
         if ($mat->isNotEmpty()) 
         {
             $matid = $mat->first()->id;
@@ -108,7 +104,6 @@ class DossierController extends Controller
                 ->first();
             if ($progdemat) 
             {
-                
                     $idprogdemat = $progdemat->id;
                
                     //on retrouve tous les ordres en attente
