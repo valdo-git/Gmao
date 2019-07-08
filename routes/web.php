@@ -75,6 +75,10 @@ Route::middleware('auth')->group(function () {
     //route pour les sélections de matos
     Route::get('ordres/selectMat', 'OrdreController@selectMat')->name('Ordres.selectMat');
     Route::get('dossiers/selectMat', 'DossierController@selectMat')->name('Dossiers.selectMat');
+    Route::get('dossiers/afficheOpOdre', 'DossierController@listOpDeOrdre')->name('Dossiers.listOpDeOrdre');
+
+    //route pour l'affichage de la liste des ordres e fonction du statut
+    route::get('ordres/ordresList', 'OrdreController@index')->name('Ordres.ordresList');
 
     //route pour création d'atelier ds le modal
     Route::post('ateliers/store', 'AtelierController@store2')->name('Ateliers.store2');

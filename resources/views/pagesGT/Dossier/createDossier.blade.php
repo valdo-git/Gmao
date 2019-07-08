@@ -74,10 +74,10 @@
                                             
                                             @foreach($collectionOrdreMat as $ordre)
                                                 <tr>
-                                                    <td> {{  $ordre->numero  }}</td>
+                                                    <td> {{   $ordre->numero  }}</td>
                                                     <td> {{   $ordre->description   }}</td>
                                                     <td> {{   $ordre->date_creation   }}</td>
-                                                    <td> {{  $ordre->operations()->count() }}</td>
+                                                    <td> <a href="{{route('Dossiers.listOpDeOrdre', ['id' => $ordre->id, 'numero'=>$ordre->numero,'num_mat' => $nuMat])}}">{{$ordre->operations()->count()}}</a></td>
                                                     <td>{{ $matDesig }}</td>
                                                     <td>
                                                         <div class="form-group">

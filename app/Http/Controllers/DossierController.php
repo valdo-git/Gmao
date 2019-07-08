@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Dossier;
 use App\Materiel;
 use App\Ordre;
+use App\Operation;
 use App\Program;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
@@ -113,6 +114,10 @@ class DossierController extends Controller
                     //on retrouve tous les ordres en attente
                     $listordre = $ordre->where('statut', 'En Attente')->get();
 
+                    //on recupere les operations liees au programme
+
+                    //dd($operationsProg = Operation::where('program_id',$idprogdemat)->get());
+
                     //on recupere la premiere op de chaque ordre
                     if ($listordre) {
                         foreach ($listordre as $ordre) {
@@ -128,7 +133,7 @@ class DossierController extends Controller
                         } else 
                             //dd($collectionOrdreMat);
 
-                            return view('pagesGT.Dossier.createDossier', compact('collectionOrdreMat', 'matDesig'));
+                            return view('pagesGT.Dossier.createDossier', compact('collectionOrdreMat', 'matDesig', 'nuMat'));
                     } else {
                         Flashy::error('Désolé il n\'ya aucun ordre de travail en attente !!!');
                         return back();
@@ -207,6 +212,21 @@ class DossierController extends Controller
     public function show($id)
     {
         dd('on est bon pour enreg',$id);
+    }
+
+    public function listOpDeOrdre(Request $request)
+        {
+            $idOrdre = $request->id;
+            $numero = $request->numero;
+            $num_mat = $request->num_mat;
+
+
+        if($idOrdre){
+
+            $operations = Ordre::find($idOrdre)->operations()->get();
+
+            return view('pagesGT.Dossier.operationsOrdre', compact('operations', 'num_mat', 'numero'));
+        }
     }
 
     /**

@@ -11,10 +11,18 @@
             </a>
         </h1>
     @else
-        <h1 class="card-header">Liste des ordres de travail en attente :&nbsp;
+        <h1 class="card-header">Liste des ordres de travail: 
+            <a href="{{route('Ordres.ordresList', ['statut' => 'En Attente'])}}" class="btn btn-primary " > En attente 
+            </a>
+            <a href="{{route('Ordres.ordresList', ['statut' => 'Ouvert'])}}" class="btn btn-primary " >
+           <i class="fa fa-plus"></i> Ouverte
+          </a>
+          <a href="{{route('Ordres.ordresList', ['statut' => 'Ferme'])}}"  class="btn btn-primary " >
+           <i class="fa fa-plus"></i> Fermée
+          </a>
           <a href="{{ route('Ordres.selectMat') }}"  class="btn btn-primary " >
            <i class="fa fa-plus"></i> Ajouter un ordre de travail
-          </a>&nbsp;&nbsp;&nbsp;
+          </a>
           <a href="{{ route('homeGT') }}"  class="btn btn-outline-info" >
              <i class="fa fa-arrow-circle-left"></i> Retour à l'accueil
           </a>
@@ -28,7 +36,7 @@
         <!-- ============================================================== -->
                 <div class="card">
                     @if ($listordre->isEmpty())
-                        <h4 class="text-center text-warning">Aucun ordre de travail enregistré. &nbsp;  </h4>
+                        <h4 class="text-center text-warning">Aucun ordre de travail. &nbsp;  </h4>
                     @else
 
                         <div class="box box-danger">

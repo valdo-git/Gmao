@@ -23,11 +23,52 @@ class OrdreController extends Controller
      */
     public function index()
     {
+        $statut = 'En Attente'; 
+
+        $statut = Request('statut'); 
         //dd('pour la liste des ordres de travail en attente');
         $ordre = new Ordre();
         $program = new Program;
         $mat = new Materiel();
-        $listordre = $ordre->where('statut','En Attente')->get();
+
+        $listordre = $ordre->where('statut',$statut)->get();
+        //$attente = 'en Attente';
+        
+        $listordre =  $listordre->paginate();
+
+        /*$statut = 'En Attente'; 
+        //dd('pour la liste des ordres de travail en attente');
+        $ordre = new Ordre();
+        $program = new Program;
+        $mat = new Materiel();
+        $listordre = $ordre->where('statut',$statut)->get();
+        $attente = 'en Attente';
+        $listordre =  $listordre->paginate();*/
+        return view('pagesGT.Ordre.index',compact('listordre','program','mat','attente'));
+    }
+
+    public function listeOrdres(Request $request)
+    {
+        $statut = Request('statut'); 
+        //dd('pour la liste des ordres de travail en attente');
+        $ordre = new Ordre();
+        $program = new Program;
+        $mat = new Materiel();
+
+        $listordre = $ordre->where('statut',$statut)->get();
+        //$attente = 'en Attente';
+        
+        $listordre =  $listordre->paginate();
+        return view('pagesGT.Ordre.listeOrdreOuvert',compact('listordre','program','mat','statut'));
+    }
+
+    public function listeOrdreOuvert()
+    {
+        //dd('pour la liste des ordres de travail en attente');
+        $ordre = new Ordre();
+        $program = new Program;
+        $mat = new Materiel();
+        $listordre = $ordre->where('statut','En Ouvert')->get();
         $attente = 'en Attente';
         $listordre =  $listordre->paginate();
         return view('pagesGT.Ordre.index',compact('listordre','program','mat','attente'));
@@ -82,6 +123,7 @@ class OrdreController extends Controller
     {
       //  dd('affichage formulaire ot et liste ops selon choix mat');
         $materiel = new Materiel();
+
         $program = new Program();
             $mat = $materiel->Where('numImmat',$request->select_mat)
             ->orWhere('codeProduit', $request->num_mat)
