@@ -12,7 +12,7 @@
     <!-- ============================================================== -->
     <div class="box box-default">
         <ol class="breadcrumb">
-            <li><a href="{{ route('homeGT') }}"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li><a href="{{ route('homeGT') }}"><i class="fa fa-home"></i> Home</a></li>
             <li class="active">Sélection matériel</li>
         </ol>
         <div class="box-header with-border">

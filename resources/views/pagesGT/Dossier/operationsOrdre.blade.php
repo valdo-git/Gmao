@@ -5,7 +5,7 @@
 @section('content_header')
 
     <ol class="breadcrumb">
-        <li><a href="{{ route('homeGT') }}"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a href="{{ route('homeGT') }}"><i class="fa fa-home"></i> Home</a></li>
         <li><a href="{{ route('Dossiers.selectMat') }}">Nouveau dossier</a></li>
         <li class="active">Liste d'opération</li>
     </ol>
@@ -55,7 +55,7 @@
 
                 </div>
                 <div class="card-footer col-sm-12">
-                    <button class="btn pull-right"><a href="{{route('Dossiers.create', compact('num_mat'))}}"><i class="fa fa-check-circle-o"></i>Retour</a></button>
+                    <button class="btn pull-right"><a href="{{route('Dossiers.create', compact('num_mat'))}}"><i class="fa fa-arrow-left"></i>Retour</a></button>
                 </div>
             </div>
 

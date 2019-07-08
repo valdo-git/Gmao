@@ -11,14 +11,14 @@
             </a>
         </h1>
     @else
-        <h1 class="card-header">Liste des ordres de travail: 
-            <a href="{{route('Ordres.ordresList', ['statut' => 'En Attente'])}}" class="btn btn-primary " > En attente 
+        <h1 class="card-header">Ordres de travail: 
+            <a href="{{route('Ordres.ordresList', ['statut' => 'En Attente'])}}" class="btn btn-secondary " > En attente 
             </a>
-            <a href="{{route('Ordres.ordresList', ['statut' => 'Ouvert'])}}" class="btn btn-primary " >
-           <i class="fa fa-plus"></i> Ouverte
+            <a href="{{route('Ordres.ordresList', ['statut' => 'Ouvert'])}}" class="btn btn-secondary" >
+           <i class="fa fa-file"></i> Ouverte
           </a>
-          <a href="{{route('Ordres.ordresList', ['statut' => 'Ferme'])}}"  class="btn btn-primary " >
-           <i class="fa fa-plus"></i> Fermée
+          <a href="{{route('Ordres.ordresList', ['statut' => 'Ferme'])}}"  class="btn btn-secondary" >
+           <i class="fa fa-close"></i> Fermée
           </a>
           <a href="{{ route('Ordres.selectMat') }}"  class="btn btn-primary " >
            <i class="fa fa-plus"></i> Ajouter un ordre de travail

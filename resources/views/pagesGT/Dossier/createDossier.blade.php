@@ -4,10 +4,9 @@
 
 @section('content_header')
     <ol class="breadcrumb">
-        <li><a href="{{ route('homeGT') }}"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="{{ route('Ordres.index') }}">Liste ordres </a></li>
-        <li><a href="{{ route('Ordres.selectMat') }}">Sélection matériel </a></li>
-        <li class="active">Création ordre</li>
+        <li><a href="{{ route('homeGT') }}"><i class="fa fa-home"></i> Home</a></li>
+        <li><a href="{{ route('Dossiers.selectMat') }}">Sélection matériel </a></li>
+        <li class="active">Création un dossier de visite</li>
     </ol>
     <h1>Création d'un dossier de visite</h1>
 @stop
