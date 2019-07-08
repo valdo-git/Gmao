@@ -244,7 +244,7 @@ return [
 
                 [
                     'text' => 'Liste des ordres de travail',
-                    'url'  => '/ordres/ordresList?statut=En Attente',
+                    'url'  => '/ordres/index',
                     'can'  => 'GT-manager',
                 ],
 

@@ -24,43 +24,20 @@ class OrdreController extends Controller
     public function index()
     {
         $statut = 'En Attente'; 
-
-        $statut = Request('statut'); 
+        if (Request('statut'))
+            $statut = Request('statut');
+        //dd($statut);
         //dd('pour la liste des ordres de travail en attente');
         $ordre = new Ordre();
         $program = new Program;
         $mat = new Materiel();
 
         $listordre = $ordre->where('statut',$statut)->get();
-        //$attente = 'en Attente';
-        
+
         $listordre =  $listordre->paginate();
-
-        /*$statut = 'En Attente'; 
-        //dd('pour la liste des ordres de travail en attente');
-        $ordre = new Ordre();
-        $program = new Program;
-        $mat = new Materiel();
-        $listordre = $ordre->where('statut',$statut)->get();
-        $attente = 'en Attente';
-        $listordre =  $listordre->paginate();*/
-        return view('pagesGT.Ordre.index',compact('listordre','program','mat','attente'));
+        return view('pagesGT.Ordre.index',compact('listordre','program','mat','statut'));
     }
 
-    public function listeOrdres(Request $request)
-    {
-        $statut = Request('statut'); 
-        //dd('pour la liste des ordres de travail en attente');
-        $ordre = new Ordre();
-        $program = new Program;
-        $mat = new Materiel();
-
-        $listordre = $ordre->where('statut',$statut)->get();
-        //$attente = 'en Attente';
-        
-        $listordre =  $listordre->paginate();
-        return view('pagesGT.Ordre.listeOrdreOuvert',compact('listordre','program','mat','statut'));
-    }
 
     public function listeOrdreOuvert()
     {

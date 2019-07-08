@@ -12,12 +12,12 @@
         </h1>
     @else
         <h1 class="card-header">Ordres de travail: 
-            <a href="{{route('Ordres.ordresList', ['statut' => 'En Attente'])}}" class="btn btn-secondary " > En attente 
+            <a href="{{route('Ordres.index', ['statut' => 'En Attente'])}}" class="btn btn-secondary " > En attente
             </a>
-            <a href="{{route('Ordres.ordresList', ['statut' => 'Ouvert'])}}" class="btn btn-secondary" >
+            <a href="{{route('Ordres.index', ['statut' => 'Ouvert'])}}" class="btn btn-secondary" >
            <i class="fa fa-file"></i> Ouverte
           </a>
-          <a href="{{route('Ordres.ordresList', ['statut' => 'Ferme'])}}"  class="btn btn-secondary" >
+          <a href="{{route('Ordres.index', ['statut' => 'Ferme'])}}"  class="btn btn-secondary" >
            <i class="fa fa-close"></i> Fermée
           </a>
           <a href="{{ route('Ordres.selectMat') }}"  class="btn btn-primary " >
