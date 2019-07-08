@@ -15,10 +15,10 @@
             <a href="{{route('Ordres.index', ['statut' => 'En Attente'])}}" class="btn btn-secondary " > En attente
             </a>
             <a href="{{route('Ordres.index', ['statut' => 'Ouvert'])}}" class="btn btn-secondary" >
-           <i class="fa fa-file"></i> Ouverte
+           <i class="fa fa-file"></i> Ouverts
           </a>
           <a href="{{route('Ordres.index', ['statut' => 'Ferme'])}}"  class="btn btn-secondary" >
-           <i class="fa fa-close"></i> Fermée
+           <i class="fa fa-close"></i> Fermés
           </a>
           <a href="{{ route('Ordres.selectMat') }}"  class="btn btn-primary " >
            <i class="fa fa-plus"></i> Ajouter un ordre de travail
