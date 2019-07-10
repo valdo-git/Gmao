@@ -144,15 +144,6 @@ class DossierController extends Controller
                 Flashy::error('Désolé ce matériel n\'existe pas !!!');
                 return back();
             }
-           /* if ($listordre)
-            {
-                return view('pagesGT.Dossier.createDossier',compact('listordre'));
-            }else{
-                Flashy::error('Désolé il n\'ya aucun ordre de travail en attente !!!');
-                return back();
-            }*/
-
-
     }
 
     /**
@@ -173,7 +164,6 @@ class DossierController extends Controller
         $dossier->date_ouverture = $request->date_ouverture;
         $dossier->date_fermeture = $request->date_fermeture;
         $dossier->statut_dv = 'Ouvert';
-        
 
         $ordre = new Ordre();
         // Récupération des ordres sélectionnées
@@ -183,11 +173,11 @@ class DossierController extends Controller
             $dossier->save();
             //maj des champs dossier_id ds oT sélectionnés
             foreach ($selectedOrders as $orderId) {
-                $ordre = $ordre->find($orderId)->get();
-                //dd($ordre);
+                $ordre = $ordre->find($orderId);//->get()
+               // dd($ordre);
                 $ordre->statut = 'Ouvert';
                 $ordre->dossier_id = $dossier->id;
-                $ordre->save();
+                $ordre->update();
             }
             Flashy::success('Dossier de visite créé avec succès !!!');
             return redirect( route('Dossiers.show',[ $dossier->id]));

@@ -244,7 +244,7 @@ return [
 
                 [
                     'text' => 'Liste des ordres de travail',
-                    'url'  => '/ordres/index',
+                    'url'  => '/Ordres/',
                     'can'  => 'GT-manager',
                 ],
 

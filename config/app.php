@@ -165,6 +165,10 @@ return [
          //added by me for adminlte
          //
          JeroenNoten\LaravelAdminLte\ServiceProvider::class,
+        //
+        //added by me for DomPDF
+        //
+        Barryvdh\DomPDF\ServiceProvider::class,
 
 
     ],
@@ -218,6 +222,8 @@ return [
 
         //pour flashy
         'Flashy' => MercurySeries\Flashy\Flashy::class,
+        //for Dumpdf
+        'PDF' => Barryvdh\DomPDF\Facade::class,
     ],
 
 ];
