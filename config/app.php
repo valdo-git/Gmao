@@ -147,10 +147,16 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
 
+
         /*
          * Package Service Providers...
          */
         MercurySeries\Flashy\FlashyServiceProvider::class,
+
+        /*
+         * Package Service Providers for DOMPDF add by soro
+         */
+            Barryvdh\DomPDF\ServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -218,6 +224,9 @@ return [
 
         //pour flashy
         'Flashy' => MercurySeries\Flashy\Flashy::class,
+
+        //For DOMPDF
+        'PDF'       => Barryvdh\DomPDF\Facade::class,
     ],
 
 ];
