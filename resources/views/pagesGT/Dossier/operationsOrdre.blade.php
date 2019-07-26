@@ -23,8 +23,8 @@
                     <div class="box-body">
                         @if ($operations)
   
-                            <table  class="table table-striped condensed">
-                                        <thead >
+                            <table  class="table table-striped condensed text-center">
+                                        <thead>
                                             <tr>
                                                 <th >#</th>
                                                 <th > Code</th>
@@ -32,7 +32,7 @@
                                                 <th > Observation</th>
                                             </tr>
                                         </thead>
-                                        <tbody class="text-center">
+                                        <tbody>
 
                                             @php
                                             $i=1;
@@ -51,11 +51,10 @@
                                     </table>
                         @endif
                     </div>
-                        
 
                 </div>
                 <div class="card-footer col-sm-12">
-                    <button class="btn pull-right"><a href="{{route('Dossiers.create', compact('num_mat'))}}"><i class="fa fa-arrow-left"></i>Retour</a></button>
+                    <button class="btn pull-right"><a href="{{$buttonText == 'Modifier le dossier' ? route('Dossiers.edit', $id ) : route('Dossiers.create', compact('num_mat'))}}"><i class="fa fa-arrow-left"></i>Retour</a></button>
                 </div>
             </div>
 

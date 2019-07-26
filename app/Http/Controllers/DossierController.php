@@ -12,6 +12,8 @@ use Illuminate\Support\Collection;
 use MercurySeries\Flashy\Flashy;
 use Illuminate\Support\Carbon;
 use App\Http\Requests\DossierFormRequest;
+use Illuminate\Support\Facades\DB;
+
 
 class DossierController extends Controller
 {
@@ -42,7 +44,7 @@ class DossierController extends Controller
             return view('pagesGT.Dossier.indexDV',compact('listDV','statut'));
         else
             return view('pagesGermac.Dossier.indexDV',compact('listDV','statut'));*/
-        return view('pagesGT.Dossier.indexDV',compact('listDV','statut'));
+        return view('pagesGT.Dossier.listDV',compact('listDV','statut'));
     }
 
     public function selectMat()
@@ -66,10 +68,11 @@ class DossierController extends Controller
      */
     public function create(Request $request)
     {
+        $dossierV = new Dossier();
         $ordre = new Ordre();
         $materiel = new Materiel();
         $program = new Program();
-        $collectionOrdreMat = new Collection();
+       $collectionOrdreMat = new Collection();
 
         //On vérifie les champs ont été renseignés
         if(empty($request->select_mat) && empty($request->num_mat)){
@@ -102,10 +105,11 @@ class DossierController extends Controller
             //on retrouve le prog lié à ce matériel
             $progdemat = $program->Where('materiel_id', $matid)
                 ->first();
+                
             if ($progdemat) 
             {
                     $idprogdemat = $progdemat->id;
-               
+
                     //on retrouve tous les ordres en attente
                     $listordre = $ordre->where('statut', 'En Attente')->get();
 
@@ -114,21 +118,22 @@ class DossierController extends Controller
                     //dd($operationsProg = Operation::where('program_id',$idprogdemat)->get());
 
                     //on recupere la premiere op de chaque ordre
-                    if ($listordre) {
+                    
+                    if ($listordre->isNotEmpty()) {
                         foreach ($listordre as $ordre) {
                             if ($ordre->operations()->first()->program_id == $idprogdemat)
                                 //$ordre->operations()->first()->program_id;
                                 $collectionOrdreMat->push($ordre);
                             //$matDesign = $program->where
                         }
-
-                        if (is_null($collectionOrdreMat)) {
-                            Flashy::error('Désolé il n\'ya aucun ordre de travail en attente pour ce matériel!!!');
+                        //Ajout de isEmpy à la place de is_null
+                        if ($collectionOrdreMat->isEmpty()) {
+                            Flashy::error('Désolé il n\'y a aucun ordre de travail en attente pour ce matériel!!!');
                             return back();
                         } else 
                             //dd($collectionOrdreMat);
 
-                            return view('pagesGT.Dossier.createDossier', compact('collectionOrdreMat', 'matDesig', 'nuMat'));
+                            return view('pagesGT.Dossier.createDossier', compact('collectionOrdreMat', 'matDesig', 'nuMat', 'dossierV'));
                     } else {
                         Flashy::error('Désolé il n\'ya aucun ordre de travail en attente !!!');
                         return back();
@@ -165,6 +170,7 @@ class DossierController extends Controller
         $dossier->date_fermeture = $request->date_fermeture;
         $dossier->statut_dv = 'Ouvert';
 
+
         $ordre = new Ordre();
         // Récupération des ordres sélectionnées
         $selectedOrders = $request->input('ordres');
@@ -180,7 +186,13 @@ class DossierController extends Controller
                 $ordre->update();
             }
             Flashy::success('Dossier de visite créé avec succès !!!');
-            return redirect( route('Dossiers.show',[ $dossier->id]));
+            /*Envoyer un message aux utilisateurs leur avertissant qu'un dossier vient d'être créé
+            $users = User::where('statut', 'op_gt')->get();
+            \Mail::to()->send();
+            */
+            $dv = $dossier;
+
+            return view('pagesGT.Dossier.showDv', compact('dv'));
         }
         else{
             Flashy::error('Vous devez sélectionner au moins un ordre de travail !!!');
@@ -196,23 +208,10 @@ class DossierController extends Controller
      */
     public function show($id)
     {
-        dd('on est bon pour enreg',$id);
+        $dv = Dossier::findOrFail($id);
+        return view('pagesGT/Dossier.showDv', compact('dv'));
     }
 
-    public function listOpDeOrdre(Request $request)
-        {
-            $idOrdre = $request->id;
-            $numero = $request->numero;
-            $num_mat = $request->num_mat;
-
-
-        if($idOrdre){
-
-            $operations = Ordre::find($idOrdre)->operations()->get();
-
-            return view('pagesGT.Dossier.operationsOrdre', compact('operations', 'num_mat', 'numero'));
-        }
-    }
 
     /**
      * Show the form for editing the specified resource.
@@ -222,7 +221,29 @@ class DossierController extends Controller
      */
     public function edit($id)
     {
-        //
+
+
+        $dossierV = Dossier::find($id);//->get();
+        $collectionOrdreMat = new Collection;
+       
+        $ordresDos= Dossier::find($id)->ordres;
+        
+        $operation = Ordre::find($ordresDos[0]->id)->operations()->get();
+        $idPgrme = $operation[0]->program_id;
+        $operationsPgme = Program::find($idPgrme)->operations()->get();
+        //dd($ordresOperations);
+        foreach ($operationsPgme as $operationPgme) {
+            foreach ($operationPgme->ordres as $ordresOps) {
+                if ($ordresOps)
+                $collectionOrdreMat->push($ordresOps);
+            }
+        }
+        
+        $mat = Program::find($idPgrme)->materiel()->get();
+        $nuMat = $mat[0]->id;
+        $matDesig = $mat[0]->designation;
+        return view('pagesGT.Dossier.editDV', compact('dossierV','matDesig', 'nuMat', 'collectionOrdreMat'));
+        
     }
 
     /**
@@ -234,7 +255,28 @@ class DossierController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $dv = Dossier::findOrFail($id);
+        $listOrdresDv = Ordre::where('dossier_id', $id)->get();
+        $idOrdresSelect = $request->ordres;
+        foreach ($listOrdresDv as $ordreDv) {
+            $ordreDv->dossier_id = NULL;
+            $ordreDv->statut = 'En Attente';
+            $ordreDv->save();
+        }
+        
+        foreach ($idOrdresSelect as $idOrdre) {
+            DB::table('ordres')->where('id', $idOrdre)
+            ->update(['dossier_id'=>$dv->id,
+                        'statut'=>'Ouvert']);
+            
+        }
+        $dv->update(['numero'=>$request->numero,
+                    'designation'=>$request->designation,
+                    'date_ouverture'=>$request->date_ouverture,
+                    'date_fermeture'=>$request->date_fermeture
+                ]);
+        Flashy::success('Dossier modifié avec succès !!!');
+             return redirect(route('Dossiers.index'));
     }
 
     /**
@@ -245,6 +287,26 @@ class DossierController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Ordre::where('dossier_id', $id)->update(['dossier_id'=>Null, 'statut'=>'En Attente']);
+        Dossier::destroy($id);
+        return redirect(route('Dossiers.index'));
     }
+
+    public function listOpDeOrdre(Request $request)
+        {
+            $idOrdre = $request->id;
+            $numero = $request->numero;
+            $num_mat = $request->num_mat;
+            $buttonText = $request->buttonText;
+            $id = $request->idDV;
+
+
+        if($idOrdre){
+
+            $operations = Ordre::find($idOrdre)->operations()->get();
+
+            return view('pagesGT.Dossier.operationsOrdre', compact('operations', 'num_mat', 'numero', 'buttonText', 'id'));
+        }
+    }
+
 }

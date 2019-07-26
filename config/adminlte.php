@@ -249,8 +249,14 @@ return [
                 ],
 
                 [
-                    'text' => 'Nouveau dossier',
+                    'text' => 'Créer un dossier',
                     'url'  => '/dossiers/selectMat',
+                    'can'  => 'GT-manager',
+                ],
+
+                [
+                    'text' => 'Liste des dossier',
+                    'url'  => '/Dossiers',
                     'can'  => 'GT-manager',
                 ],
             ],

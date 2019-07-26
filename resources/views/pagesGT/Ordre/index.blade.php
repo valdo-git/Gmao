@@ -19,7 +19,7 @@
           </a>
           <a href="{{route('Ordres.index', ['statut' => 'Ferme'])}}"  class="btn btn-secondary" >
            <i class="fa fa-close"></i> Fermés
-          </a>
+          </a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
           <a href="{{ route('Ordres.selectMat') }}"  class="btn btn-primary " >
            <i class="fa fa-plus"></i> Ajouter un ordre de travail
           </a>

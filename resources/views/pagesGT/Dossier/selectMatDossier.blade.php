@@ -34,9 +34,10 @@
                             <td>
 
                                 <select  name="select_mat" id="select_mat" onselect=""  class="form-control"  >
-                                    <optgroup label="-- Selectionner le matériel --" ></optgroup>
+                                    <optgroup >
 
-                                    <option> </option>
+                                    <option>-- Selectionner un matériel --</option>
+                                    </optgroup> 
 
                                     <optgroup label="Engins roulants">
 

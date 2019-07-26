@@ -36,12 +36,12 @@
                 <tr>
                     <th> Numero </th>
                     <th> Designation </th>
-                    <th> Date de fermeture </th>
-                    <th> Dépassement </th>
-                    <th> Nombre OT du dossier </th>
-                    <th> Nombre OT exécutés </th>
-                    <th> Ratio exécution </th>
+                    <th> Date d'ouverture </th>
+                    <th> Date de fermeture  </th>
                     <th> </th>
+                    <th> </th>
+                    <th> </th>
+                    
 
                 </tr>
                 @foreach($listDV as $dv)
@@ -57,27 +57,42 @@
                             $nbreOT = $lisOT->count();
                             $nbreOT_ferme = $lisOT->where('statut','Fermé')->count();
                         // gestion du ratio exec
-                             $ratio = ($nbreOT_ferme * 100)/$nbreOT;
+                             //$ratio = ($nbreOT_ferme * 100)/$nbreOT;
                         // gestion affichage date
+                            $date_ouverture = Carbon\Carbon::parse($dv->date_ouverture);
+                            $date_ouverture = $date_ouverture->format('d-m-Y');
                             $date_fermeture = Carbon\Carbon::parse($dv->date_fermeture);
                             $date_fermeture = $date_fermeture->format('d-m-Y');
                     @endphp
                     <tr>
                         <td> {{  $dv->numero  }}</td>
                         <td> {{   $dv->designation   }}</td>
-                        <td> {{  $date_fermeture   }}</td>
-                        <td> {{   $depassement   }}</td>
+                        <td> {{  $date_ouverture  }}</td>
+                        <td> {{   $date_fermeture    }}</td>
                         <td>
-                            <a class="form-check-label " href="{{route('Ordres.indexDV',['OT_fermes'=>'false','DvId'=>$dv->id])}}">
-                            {{   $nbreOT   }} <i class="fa fa-eye"></i>
-                            </a>&nbsp;
+                            <a href="{{route('Dossiers.show', $dv)}}"
+                                    class="btn btn-primary  btn-sm" >
+                                    <i class="icon ion-eye"></i> 
+                                 Afficher
+                            </a>
                         </td>
                         <td>
-                            <a class="form-check-label " href="{{route('Ordres.indexDV',['DV_fermes'=>'true','DvId'=>$dv->id])}}">
-                            {{   $nbreOT_ferme   }} <i class="fa fa-eye"></i>
-                            </a>&nbsp;
+                            <a href="{{route('Dossiers.edit', [$dv->id])}}"
+                                    class="btn btn-primary  btn-sm" >
+                                    <i class="icon ion-compose"></i> 
+                                 Modifier
+                            </a>
                         </td>
-                        <td> {{   $ratio   }} %</td>
+                        <td> 
+                            <form action="{{ Route('Dossiers.destroy', $dv) }}" method="post" class="d-inline-block">
+                            {{csrf_field()}}
+                            {{method_field('DELETE')}}
+                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Voulez-vous vraiment supprimer cet ordre de travail ?')">
+                                <i class="icon ion-android-delete"></i> Supprimer
+                            </button>
+                           
+                            </form>
+                        </td>
                     </tr>
                 @endforeach
             </table>
@@ -92,4 +107,8 @@
      </div>
 
 </div>
-@endsection
+
+
+
+@stop
+
