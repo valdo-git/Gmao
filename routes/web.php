@@ -83,6 +83,12 @@ Route::middleware('auth')->group(function () {
     //route pour création d'emplacement ds le modal
     Route::post('emplacements/store', 'EmplacementController@store2')->name('Emplacements.store2');
 
+    //route pour les infos sur le traitements
+    Route::get('dossiers/traitement','DossierController@infoTraitement')->name('dossiers.infosTraitement');
+
+    //route pour le pdf
+    Route::get('pdf/{dossier}', 'DossierController@pdfCreator')->name('dossier.pdf');
+
     ///////routes de l'admin
 
     //Route::get('auth/', 'AuthController@store2')->name('Emplacements.store2');

@@ -13,6 +13,7 @@ use MercurySeries\Flashy\Flashy;
 use Illuminate\Support\Carbon;
 use App\Http\Requests\DossierFormRequest;
 use Illuminate\Support\Facades\DB;
+use PDF;
 
 
 class DossierController extends Controller
@@ -190,9 +191,10 @@ class DossierController extends Controller
             $users = User::where('statut', 'op_gt')->get();
             \Mail::to()->send();
             */
-            $dv = $dossier;
+            //$dv = $dossier;
+            $lisOT = $dossier->ordres()->get();
 
-            return view('pagesGT.Dossier.showDv', compact('dv'));
+            return view('pagesGT.Dossier.showDv', compact('dossier', 'lisOT'));
         }
         else{
             Flashy::error('Vous devez sélectionner au moins un ordre de travail !!!');
@@ -208,8 +210,10 @@ class DossierController extends Controller
      */
     public function show($id)
     {
-        $dv = Dossier::findOrFail($id);
-        return view('pagesGT/Dossier.showDv', compact('dv'));
+        $dossier = Dossier::findOrFail($id);
+        //dd($dv);
+        $lisOT = $dossier->ordres()->get();
+        return view('pagesGT/Dossier.showDv', compact('dossier', 'lisOT'));
     }
 
 
@@ -221,8 +225,6 @@ class DossierController extends Controller
      */
     public function edit($id)
     {
-
-
         $dossierV = Dossier::find($id);//->get();
         $collectionOrdreMat = new Collection;
        
@@ -292,6 +294,19 @@ class DossierController extends Controller
         return redirect(route('Dossiers.index'));
     }
 
+    public function infoTraitement(Request $request){
+        $numeroDv = $request->numeroDv;
+        $numerOrdre = $request->numerOrdre;
+        $id = $request->id;
+        $operations = Ordre::find($id)->operations;
+        $pgrme = Program::where('id', $operations[0]->program_id)->first();
+        //dd($pgrmes);
+        //$pgrme =$pgrmes[0];
+        $materiel = Program::find($pgrme->id)->materiel;
+         //dd($materiel);
+        return view('pagesGT.Dossier.traitement', compact('numeroDv', 'numerOrdre', 'operations', 'pgrme', 'materiel'));
+    }
+
     public function listOpDeOrdre(Request $request)
         {
             $idOrdre = $request->id;
@@ -307,6 +322,15 @@ class DossierController extends Controller
 
             return view('pagesGT.Dossier.operationsOrdre', compact('operations', 'num_mat', 'numero', 'buttonText', 'id'));
         }
+    }
+
+    public function pdfCreator($idDv){
+        $numeroDv = Dossier::where('id', $idDv)->get(['numero']);
+        $ordresDv = Ordre::where('dossier_id', $idDv)->get();
+        //dd($ordresDv);  
+            $pdf = PDF::loadView('pdf/ordrePdf', compact('numeroDv', 'ordresDv'));
+            $name = "Dossier".$idDv.".pdf";
+            return $pdf->download($name);
     }
 
 }

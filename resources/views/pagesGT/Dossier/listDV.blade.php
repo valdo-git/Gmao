@@ -32,7 +32,7 @@
          @else
 
             <div class="box-body">
-                <table class="table table-bordered ">
+                <table class="table ">
                 <tr>
                     <th> Numero </th>
                     <th> Designation </th>

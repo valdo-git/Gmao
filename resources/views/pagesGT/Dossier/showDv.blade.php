@@ -14,12 +14,12 @@
 
 @section('content')
 
-       <!-- ============================================================== -->
+<!-- ============================================================== -->
 <!-- Formulaire Dossier de visite -->
 <!-- ============================================================== -->
     
 <div class="box  box-solid box-primary">
-     <div class ="box-header with-border bg-light-blue-gradient" ><h4 class="box-title">Dossier de visite n° {{ $dv->numero }} :</h4> </div>
+     <div class ="box-header with-border bg-light-blue-gradient" ><h4 class="box-title">Dossier de visite n° {{ $dossier->numero }} :</h4> </div>
         <div class ="box-body" >
             <div class="form-group">
             	<table class="table text-center">
@@ -31,25 +31,24 @@
                 	</tr>
                 	@php
                         // gestion du dépassement
-                            if (  $dv->date_fermeture < today('UTC') )
+                            if (  $dossier->date_fermeture < today('UTC') )
                                 $depassement ='Oui';
                             else
                                 $depassement ='Non';
                         // gestion des OT
-                            $lisOT = $dv->ordres()->get();
                             $nbreOT_ouvert = $lisOT->where('statut','Ouvert')->count();
                             $nbreOT = $lisOT->count();
                             $nbreOT_ferme = $lisOT->where('statut','Fermé')->count();
                         // gestion du ratio exec
                              $ratio = ($nbreOT_ferme * 100)/$nbreOT;
                         // gestion affichage date
-                            $date_fermeture = Carbon\Carbon::parse($dv->date_fermeture);
+                            $date_fermeture = Carbon\Carbon::parse($dossier->date_fermeture);
                             $date_fermeture = $date_fermeture->format('d-m-Y');
                     @endphp
               
                     <tr>
-                        <td> {{  $dv->numero  }}</td>
-                        <td> {{   $dv->designation   }}</td>
+                        <td> {{  $dossier->numero  }}</td>
+                        <td> {{   $dossier->designation   }}</td>
                         <td> {{  $date_fermeture  }}</td>
                         <td> {{   $nbreOT_ouvert  }}</td>
                     </tr>
@@ -81,13 +80,13 @@
                         @php
                         // gestion affichage date
                             $date = Carbon\Carbon::parse($ordre->date_creation);
-                            $date = $date->format('d-m-Y');
+                            $date = $date->format('d-m-Y');                            
                         @endphp
                     <tr>
                         <td> {{ $ordre->numero }}</td>
                         <td> {{ $ordre->description }}</td>
                         <td>{{ $date }}</td>
-                         <td><a href="">Info</a></td>
+                         <td><a href="{{route('dossiers.infosTraitement', ['numeroDv'=>$dossier->numero, 'numerOrdre'=>$ordre->numero, 'id'=>$ordre->id])}}">Info</a></td>
                     </tr>
                         @endforeach
                 </tbody>
@@ -96,7 +95,7 @@
                     <!-- bouton de soumission du formulaire -->
                     <!-- ============================================================== -->
     	<div class="box-footer">
-   		<a href="{{route('Dossiers.index')}}" class="btn btn-success pull-right">
+   		<a href="{{route('dossier.pdf', ['idDv'=>$dossier->id])}}" class="btn btn-success pull-right">
    			<i class="fa fa-print"></i> Imprimer</a> 
     </div>
     	</div>
