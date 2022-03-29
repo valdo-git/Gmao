@@ -12,7 +12,7 @@
     <!-- ============================================================== -->
     <div class="box box-default">
         <ol class="breadcrumb">
-            <li><a href="{{ route('homeGT') }}"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li><a href="{{ route('homeGT') }}"><i class="fa fa-home"></i> Home</a></li>
             <li class="active">Sélection matériel</li>
         </ol>
         <div class="box-header with-border">
@@ -34,9 +34,13 @@
                             <td>
 
                                 <select  name="select_mat" id="select_mat" onselect=""  class="form-control"  >
-                                    <optgroup label="-- Selectionner le matériel --" ></optgroup>
+                                    <optgroup >
+
+                                    <option>-- Selectionner un matériel --</option>
+                                    </optgroup> 
 
                                     <optgroup label="Engins roulants">
+
                                         @foreach($materiels1 as $mat1)
                                             <option value="{{$mat1->numImmat}}">{{$mat1->designation}}</option>
                                         @endforeach
@@ -68,16 +72,5 @@
 
 
 
-
-@section('js')
-    <script>
-        $(document).ready(function(){
-            $("#select_mat").change(function(){
-               var valSelect = $("#select_mat").val();
-                $("#num_mat").val(valSelect);
-            });
-        });
-    </script>
-    @endsection
 
 

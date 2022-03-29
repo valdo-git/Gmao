@@ -31,7 +31,7 @@
                             {!! csrf_field() !!}
                         <div class="box box-primary">
                              <div class="box-body">
-                                 <p><input type="text" name='idProg' value="{{ $program->id }}" /></p>
+                                 <p><input type="text" name='idProg' value="{{ $program->id}}" /></p>
                                             <h4 class="card-header">L'opération</h4>
                                             <p class="text-center" >
                                                 <input type="text" class="form-control{{ $errors->has('code') ? ' is-invalid' : '' }}" name="code" id="code"  placeholder="Code de  l'opération" required >

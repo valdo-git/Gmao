@@ -14,11 +14,11 @@ class AddIdEmplacementansIdAtelierToMateriels extends Migration
     public function up()
     {
         Schema::table('materiels', function (Blueprint $table) {
-            Schema::table('materiels', function (Blueprint $table) {
+            
             $table->integer('emplacement_id');
             $table->integer('atelier_id');
         });
-        });
+        
     }
 
     /**

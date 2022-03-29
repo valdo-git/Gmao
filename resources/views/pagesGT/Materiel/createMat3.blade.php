@@ -82,7 +82,7 @@
 
     <div class="card-footer col-sm-10">
         <button class="btn btn-primary pull-right " type="submit" ><i class="fa fa-check-circle-o"></i>&nbsp; Valider l'enregistrement</button>
-        <button class="btn" type="reset" ><i class="fa fa-reddit"></i>&nbsp; Annuler l'enregistrement</button>
+        <button class="btn" type="reset" ><a href="{{ route('homeGT') }}"><i class="fa fa-reddit"></i>&nbsp; Annuler l'enregistrement</a></button>
     </div>
 
 </form>

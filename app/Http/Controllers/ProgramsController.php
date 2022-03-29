@@ -192,7 +192,7 @@ class ProgramsController extends Controller
             ]);
             if ($validator->fails()) {
                 Flashy::error('Ce numero de programme existe déjà, veuillez réessayer  !!!');
-                return view('PagesGT.ProgOps.createOpsProg',compact('program','listops','collectionfreq'))
+                return view('pagesGT.ProgOps.createOpsProg',compact('program','listops','collectionfreq'))
                 ->withErrors($validator);
             }
         }
@@ -203,7 +203,7 @@ class ProgramsController extends Controller
             ]);
             if ($validator->fails()) {
                 Flashy::error('Une erreur s\'est produite, veuillez réessayer  !!!');
-                return view('PagesGT.ProgOps.createOpsProg',compact('program','listops','collectionfreq'))
+                return view('pagesGT.ProgOps.createOpsProg',compact('program','listops','collectionfreq'))
                     ->withErrors($validator);
             }
         }
@@ -218,7 +218,7 @@ class ProgramsController extends Controller
         //$listops = $program ->operations->all();// liste des opérations du programme
 
         Flashy::Success('Informations modifiées avec succès !!!');
-        return view('PagesGT.ProgOps.createOpsProg',compact('program','listops','collectionfreq'));
+        return view('pagesGT.ProgOps.createOpsProg',compact('program','listops','collectionfreq'));
 
 
 

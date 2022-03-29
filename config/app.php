@@ -147,10 +147,16 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
 
+
         /*
          * Package Service Providers...
          */
         MercurySeries\Flashy\FlashyServiceProvider::class,
+
+        /*
+         * Package Service Providers for DOMPDF add by soro
+         */
+            Barryvdh\DomPDF\ServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -165,8 +171,10 @@ return [
          //added by me for adminlte
          //
          JeroenNoten\LaravelAdminLte\ServiceProvider::class,
-
-
+        //
+        //added by me for DomPDF
+        //
+        Barryvdh\DomPDF\ServiceProvider::class,
     ],
 
     /*
@@ -218,6 +226,9 @@ return [
 
         //pour flashy
         'Flashy' => MercurySeries\Flashy\Flashy::class,
+
+        //for Dumpdf
+        'PDF' => Barryvdh\DomPDF\Facade::class,
     ],
 
 ];

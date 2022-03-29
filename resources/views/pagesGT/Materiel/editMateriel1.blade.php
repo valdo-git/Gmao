@@ -98,7 +98,7 @@
                 </div>
         </div>
             <div class="box-footer ">
-                <button type="reset" class="btn btn-default pull-left"><i class="fa fa-remove">&nbsp;</i>Annuler</button>
+                <button type="reset" class="btn btn-default pull-left"><i class="fa fa-remove">&nbsp;</i><a href="{{ route('Materiels.index') }}">Annuler</a></button>
                 <button  id="myBtn" type="submit" class="btn btn-primary pull-right">
                     <i class="fa fa-check">&nbsp;</i>Valider les modifications</button>
             </div>

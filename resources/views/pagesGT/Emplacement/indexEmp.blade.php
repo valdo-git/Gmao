@@ -13,28 +13,47 @@
         <div class="modal-dialog" >
             <div class="modal-content">
 
-                <div class="modal-header">
-                    <h5 class="modal-title">Création emplacement</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <form method="POST"  id="form-ops" action="{{ route('Emplacements.store2') }}" >
+                <div class="box-header with-border">
+
+                    <div class="modal-header">
+                        <h3 class="modal-title">Création emplacement</h3>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form method="POST"  id="form-ops" class="form-horizontal" action="{{ route('Emplacements.store2') }}" >
                     <div class="modal-body">
                         {!! csrf_field() !!}
                         <div class="row">
-                            <div class="col-sm-5">
+                            <div class="col-sm">
                                 <div class="card">
                                     <div class="card-body">
-                                        <p >
-                                            <input type="text" class="form-control" name="designation" id="designation" placeholder="*Désignation de l'emplacement" required>
-                                        </p>
-                                        <p >
-                                            <input type="text" class="form-control" name="gisement" id="gisement" placeholder="*Gisement" required>
-                                        </p>
-                                        <p >
-                                            <textarea  class="form-control" name="observations" id="observations" >Obsevations sur l'emplacement</textarea>
-                                        </p>
+
+                                        <div class="form-group">
+                                            <label for="desig" class="col-sm-3 control-label">*Désignation de l'emplacement :</label>
+                                            <div class="col-sm-9">
+                                                <input type="text" class="form-control" id="designation"  name="designation" placeholder="*Désignation de l'emplacement" required>
+                                            </div>
+                                        </div>
+
+
+                                       <div class="form-group">
+                                            <label for="gise" class="col-sm-3 control-label">*Gisement :</label>
+                                            <div class="col-sm-9">
+                                                <input type="text" class="form-control" id="gisement"  name="gisement" placeholder="*Gisement" required>
+                                            </div>
+                                        </div>
+
+                                        
+
+                                        <div class="form-group">
+                                            <label for="observ" class="col-sm-3 control-label">*Observations:</label>
+                                            <div class="col-sm-9">
+                                                <textarea  class="form-control" name="observations" id="observations" >Obsevations sur l'emplacement</textarea>
+                                            </div>
+                                        </div>
+
+                                        
 
                                     </div>
                                 </div>
@@ -45,7 +64,8 @@
                         <button type="submit" class="btn btn-primary" name="newop">Enregistrer</button>
                         <button type="reset" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
                     </div>
-                </form>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
@@ -100,6 +120,10 @@
 
                             <td>
                                {{-- <a href="{{Route('Ateliers.edit',$at)}}" class="btn btn-primary btn-sm">Modifier</a>--}}
+                                <form action="{{ Route('Emplacements.destroy',$em) }}"
+                                      class="d-inline-block"
+                                      method="post">
+
                                 <input type="button" class="btn btn-primary btn-sm"
                                        data-myid="{{ $em->id }}"
                                        data-mydes="{{ $em->designation }}"
@@ -107,19 +131,18 @@
                                        data-myobs="{{ $em->observations }}"
                                 data-toggle="modal" data-target="#myModalModifEmp"  value='Modifier'/>
 
-
                                 @if ($em->materiels()->get()->isNotEmpty())
                                     <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Impossible de supprimer cet emplacement">
-                                        <button class="btn btn-danger btn-sm" style="pointer-events: none;"  disabled>Supprimer</button>
+                                        <button class="btn btn-danger btn-sm" style="pointer-events: none;"  disabled> <i class="icon ion-android-delete"></i> Supprimer</button>
                                     </span>
                                 @else
-                                    <form action="{{ Route('Emplacements.destroy',$em) }}"
-                                          method="post"
-                                          class="d-inline-block"
-                                          onclick="return confirm('Voulez-vous vraiment supprimer cet atelier ?')">
+
                                         {{csrf_field()}}
                                         {{method_field('DELETE')}}
-                                        <input type="submit" class=" btn btn-danger btn-sm" value="Supprimer"/>
+                                        <button type="submit" class="btn btn-danger btn-sm"
+                                                onclick="return confirm('Voulez-vous vraiment supprimer cet atelier ?')">
+                                             <i class="icon ion-android-delete"></i> Supprimer
+                                        </button>
                                         {{-- <input type="hidden" name='idExp' value="{{ $exp->id }}" /> --}}
                                     </form>
                                 @endif
@@ -148,42 +171,47 @@
             <div class="modal-content">
 
                 <div class="modal-header">
-                    <h5 class="modal-title">Modification Emplacement</h5>
+                    <h3 class="modal-title">Modification Emplacement</h3>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
 
-                <form method="POST"  id="form-ops" action="{{ route('Emplacements.update','idAt') }}" >
+                <form method="POST"  id="form-ops" class="form-horizontal" action="{{ route('Emplacements.update','idAt') }}" >
                         {!! csrf_field() !!}
                         <p><input  type="hidden" name='_method' value="PUT" /></p>
 
                     <div class="modal-body">
                             <div class="row">
-                                <div class="col-sm-5">
+                                <div class="col-sm">
                                     <div class="card">
                                         <div class="card-body">
+
                                             <p><input  type="hidden"  name="idModif" id="idModif" /></p>
 
-                                            <p>
-                                                
-                                                <input type="text"  class="form-control{{ $errors->has('designation') ? ' is-invalid' : '' }}" name="designation" id="desModif" placeholder="Désignation" />
+                                            <div class="form-group">
+                                                <label for="inputDes" class="col-sm-3 control-label">*Désignation :</label>
+                                                <div class="col-sm-8">
+                                                    <input type="text"  class="form-control{{ $errors->has('designation') ? ' is-invalid' : '' }}" name="designation" id="desModif" placeholder="Désignation" />
+                                                </div>
+                                            </div>
+                                        
 
-                                            <p>
+                                            <div class="form-group">
+                                                <label for="inputGise" class="col-sm-3 control-label">*Gisement :</label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" class="form-control" name="gisement" id="gisementModif"  placeholder="Gisement" />
+                                                </div>
+                                            </div>
 
-                                            <p>
-                                                
-                                                <input type="text" class="form-control" name="gisement" id="gisementModif"  placeholder="Gisement" />
+                                            <div class="form-group">
+                                                <label for="inputObs" class="col-sm-3 control-label">*Observations :</label>
+                                                <div class="col-sm-8">
+                                                    <textarea  class="form-control" id="obsModif" name="observations" >Observations
 
-                                            <p>
-
-
-                                            <p>
-                                                
-                                                <textarea  class="form-control" id="obsModif" name="observations" >Observations
-
-                                                </textarea>
-                                            </p>
+                                                    </textarea>
+                                                </div>
+                                            </div>
 
                                         </div>
                                     </div>
@@ -207,7 +235,7 @@
 
 
 @endsection
-@section('scripts')
+@section('js')
     <script>
         $('#myModalModifEmp').on('show.bs.modal', function (event) {
             var button = $(event.relatedTarget) // Button that triggered the modal

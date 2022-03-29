@@ -10,58 +10,56 @@
         <div class="modal-dialog" >
             <div class="modal-content">
 
-                <div class="modal-header">
-                    <h5 class="modal-title">Création atelier</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <form method="POST"  id="form-ops" action="{{ route('Ateliers.store2') }}" >
-                    <div class="modal-body">
+                    <div class="modal-header ">
+                        <h3 class="modal-title">Création d'atelier</h3>
+                    </div>
+
+                    <form method="POST"  id="form-ops" class="form-horizontal" action="{{ route('Ateliers.store2') }}" >
+                        <div class="modal-body">
                         {!! csrf_field() !!}
                         <div class="row">
                             <div class="col-sm">
                                 <div class="card">
                                     <div class="card-body">
-                                        <div class="input-group mb-3">
-                                           <div class="input-group-append">
-                                                <span class="input-group-text" id="basic-addon3">  *Nom l'atelier : </span>
-                                            </div>
-                                            <input type="text" class="form-control" name="nom_atelier" id="nom_atelier" placeholder="*Nom de l'atelier" required>
 
+                                        <div class="form-group">
+                                            <label for="inputNomAt" class="col-sm-3 control-label">*Nom l'atelier :</label>
+                                            <div class="col-sm-8">
+                                                <input type="text" class="form-control" id="nom_atelier"  name="nom_atelier" placeholder="*Nom de l'atelier" required>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="inputNomChiefAt" class="col-sm-3 control-label">*Grade et nom du Chef d'atelier :</label>
+                                            <div class="col-sm-8">
+                                                <input type="text" class="form-control" name="nom_chef" id="nom_chef" placeholder="*Grade et nom du Chef d'atelier" required>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="inputNomAt" class="col-sm-3 control-label">Date de création :</label>
+                                            <div class="col-sm-8">
+                                                <input type="date" class="form-control" name="date_creation" id="date_creation">
+                                            </div>
                                         </div>
 
-                                        <div class="input-group mb-3">
-                                            <div class="input-group-append">
-                                                <span class="input-group-text" id="basic-addon3">  *Grade et nom du Chef d'atelier : </span>
-                                            </div>
-                                            <input type="text" class="form-control" name="nom_chef" id="nom_chef" placeholder="*Grade et nom du Chef d'atelier" required>
-
+                                        <!--
                                             <select  name="nom_chef"  id="nom_chef" onselect="" class="custom-select " required >
                                                 @foreach($listeChefAt as $chef)
                                                     <option value="{{$chef->nom_chef}}">{{$chef->nom_chef}}</option>
                                                 @endforeach
                                             </select>
-                                        </div>
-
-                                        <div class="input-group mb-3">
-                                            <div class="input-group-append">
-                                                <span class="input-group-text" id="basic-addon3">Date de création : </span>
-                                            </div>
-                                            <input type="date" class="form-control" name="date_creation" id="date_creation">
-                                        </div>
-
-
+                                      -->
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary" name="newop">Enregistrer</button>
-                        <button type="reset" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-                    </div>
-                </form>
+
+                        </div>
+                            <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary" name="newop">Enregistrer</button>
+                            <button type="reset" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                        </div>
+                    </form>
+
             </div>
         </div>
     </div>
@@ -69,8 +67,8 @@
     <!-- FIN Formulaire modal d'ajout d'un atelier -->
     <!-- ============================================================== -->
 
+<div class="box box-solid box-body">
 
-    <div class="card">
         @if ($errors->has('nom_atelier') )
             @php
             MercurySeries\Flashy\Flashy::error( $errors->first('nom_atelier') );
@@ -81,15 +79,15 @@
                 MercurySeries\Flashy\Flashy::error( $errors->first('nom_chef') );
                 @endphp
             @endif
- <h4 class="card-header">Liste des ateliers :&nbsp;
-     <button type="button" class="btn btn-outline-primary " data-toggle="modal" data-target="#myModalAt" >
-         <i class="fa fa-plus"></i> Ajouter un atelier
-     </button>
+         <h4 class="card-header">Liste des ateliers :&nbsp;
+             <button type="button" class="btn btn-outline-primary " data-toggle="modal" data-target="#myModalAt" >
+                 <i class="fa fa-plus"></i> Ajouter un atelier
+             </button>
 
- </h4>
- @if ($listatelier->isEmpty())
-     <h4 class="text-center text-warning">Auncun atelier n'est enregistré. &nbsp;  </h4>
- @else
+         </h4>
+         @if ($listatelier->isEmpty())
+             <h4 class="text-center text-warning">Auncun atelier n'est enregistré. &nbsp;  </h4>
+         @else
 
      <div class="dataTable ">
          <table id="zero_config" class="table table-sm text-center">
@@ -151,8 +149,8 @@
      {{$listatelier->links()}}
  @endif
 
-</div>
 
+</div>
 <!-- ============================================================== -->
 <!-- Formulaire modal de modif d'un atelier -->
 <!-- ============================================================== -->
@@ -160,14 +158,11 @@
  <div class="modal-dialog" role="document">
      <div class="modal-content">
 
-         <div class="modal-header">
-             <h5 class="modal-title">Modification atelier</h5>
-             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                 <span aria-hidden="true">&times;</span>
-             </button>
+         <div class="modal-header ">
+             <h3 class="modal-title">Modification des infos d'atelier</h3>
          </div>
 
-         <form method="POST"  id="form-ops" action="{{ route('Ateliers.update','idAt') }}" >
+         <form method="POST"  id="form-ops"  class="form-horizontal" action="{{ route('Ateliers.update','idAt') }}" >
                  {!! csrf_field() !!}
                  <p><input  type="hidden" name='_method' value="PUT" /></p>
 
@@ -175,35 +170,36 @@
                      <div class="row">
                          <div class="col-sm">
                              <div class="card">
+
                                  <div class="card-body">
                                      <p><input  type="hidden"  name="idModif" id="idModif" /></p>
 
-                                     <div class="input-group mb-3">
-                                         <div class="input-group-append">
-                                             <span class="input-group-text" id="basic-addon3">Nom de l'atelier : </span>
+                                     <div class="form-group">
+                                             <label for="inputNomAt" class="col-sm-3 control-label">Nom l'atelier :</label>
+                                         <div class="col-sm-8">
+                                             <input type="text"  class="form-control" name="nom_atelier" id="nomatelierModif" />
                                          </div>
-                                         <input type="text"  class="form-control" name="nom_atelier" id="nomatelierModif" />
                                      </div>
 
-                                     <div class="input-group mb-3">
-                                         <div class="input-group-append">
-                                             <span class="input-group-text" id="basic-addon3">Grade et nom du chef d'atelier: </span>
+                                     <div class="form-group">
+                                         <label for="inputNomChiefAt" class="col-sm-3 control-label">Grade et nom du chef d'atelier:</label>
+                                         <div class="col-sm-8">
+                                             <input type="text" class="form-control" name="nom_chef" id="nomchefModif"/>
                                          </div>
-                                         <input type="text" class="form-control" name="nom_chef" id="nomchefModif"/>
                                      </div>
 
-                                     <div class="input-group mb-3">
-                                         <div class="input-group-append">
-                                             <span class="input-group-text" id="basic-addon3">Date de création enregistrée: </span>
+                                     <div class="form-group">
+                                         <label for="inputAncDateAt" class="col-sm-3 control-label">Date de création enregistrée :</label>
+                                         <div class="col-sm-8">
+                                             <input type="text" class="form-control" name="date_creation_p" id="datecreationModif" placeholder="oui"/>
                                          </div>
-                                         <input type="text" class="form-control" name="date_creation_p" id="datecreationModif" placeholder="oui"/>
                                      </div>
 
-                                     <div class="input-group mb-3">
-                                         <div class="input-group-append">
-                                             <span class="input-group-text" id="basic-addon3">Nouvelle date : </span>
+                                     <div class="form-group">
+                                             <label for="inputAncDateAt" class="col-sm-3 control-label">Nouvelle date : </label>
+                                         <div class="col-sm-8">
+                                            <input type="date" class="form-control" name="date_creation_n" />
                                          </div>
-                                         <input type="date" class="form-control" name="date_creation_n" />
                                      </div>
 
                                  </div>

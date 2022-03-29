@@ -10,7 +10,9 @@ use Illuminate\Http\Request;
 use App\Materiel;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
 use MercurySeries\Flashy\Flashy;
+
 
 class OrdreController extends Controller
 {
@@ -21,15 +23,34 @@ class OrdreController extends Controller
      */
     public function index()
     {
+        $statut = 'En Attente'; 
+        if (Request('statut'))
+            $statut = Request('statut');
+        //dd($statut);
         //dd('pour la liste des ordres de travail en attente');
         $ordre = new Ordre();
         $program = new Program;
         $mat = new Materiel();
-        $listordre = $ordre->where('statut','En Attente')->get();
+
+        $listordre = $ordre->where('statut',$statut)->get();
+
+        $listordre =  $listordre->paginate();
+        return view('pagesGT.Ordre.index',compact('listordre','program','mat','statut'));
+    }
+
+
+    public function listeOrdreOuvert()
+    {
+        //dd('pour la liste des ordres de travail en attente');
+        $ordre = new Ordre();
+        $program = new Program;
+        $mat = new Materiel();
+        $listordre = $ordre->where('statut','En Ouvert')->get();
         $attente = 'en Attente';
         $listordre =  $listordre->paginate();
         return view('pagesGT.Ordre.index',compact('listordre','program','mat','attente'));
     }
+    
     public function indexDV(Request $request)
     {
         //dd('pour la liste des ordres de travail liés à un DV, au niv du germac');
@@ -79,6 +100,7 @@ class OrdreController extends Controller
     {
       //  dd('affichage formulaire ot et liste ops selon choix mat');
         $materiel = new Materiel();
+
         $program = new Program();
             $mat = $materiel->Where('numImmat',$request->select_mat)
             ->orWhere('codeProduit', $request->num_mat)
@@ -173,13 +195,20 @@ class OrdreController extends Controller
      */
     public function edit($id)
     {
+        //selection des operations qui ont pour l'ordre $id
+       // $id_ops = DB::table('cartes')->select('operation_id')->where('ordre_id', $id)->get();
+
+       // dd($id_ops);
+
         $ordreToModify = Ordre::find($id);
         $uneops = $ordreToModify->operations()->first();
+        $listOpOt = $ordreToModify->operations()->get();
         $idprog = Operation::find($uneops->id)->program_id;
         //dd($idprog);
         $prog = Program::find($idprog);
         $listops = $prog->operations()->get();
-        return view('pagesGT.Ordre.editOrdre',compact('listops','ordreToModify'));
+
+        return view('pagesGT.Ordre.editOrdre',compact('listops','ordreToModify', 'listOpOt'));
 
     }
 

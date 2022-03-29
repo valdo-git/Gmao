@@ -241,9 +241,22 @@ return [
                     'url'  => '/ordres/selectMat',
                     'can'  => 'GT-manager',
                 ],
+
                 [
-                    'text' => 'Nouveau dossier',
+                    'text' => 'Liste des ordres de travail',
+                    'url'  => '/Ordres',
+                    'can'  => 'GT-manager',
+                ],
+
+                [
+                    'text' => 'Créer un dossier',
                     'url'  => '/dossiers/selectMat',
+                    'can'  => 'GT-manager',
+                ],
+
+                [
+                    'text' => 'Liste des dossier',
+                    'url'  => '/Dossiers',
                     'can'  => 'GT-manager',
                 ],
             ],

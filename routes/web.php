@@ -75,12 +75,19 @@ Route::middleware('auth')->group(function () {
     //route pour les sélections de matos
     Route::get('ordres/selectMat', 'OrdreController@selectMat')->name('Ordres.selectMat');
     Route::get('dossiers/selectMat', 'DossierController@selectMat')->name('Dossiers.selectMat');
+    Route::get('dossiers/afficheOpOdre', 'DossierController@listOpDeOrdre')->name('Dossiers.listOpDeOrdre');
 
     //route pour création d'atelier ds le modal
     Route::post('ateliers/store', 'AtelierController@store2')->name('Ateliers.store2');
 
     //route pour création d'emplacement ds le modal
     Route::post('emplacements/store', 'EmplacementController@store2')->name('Emplacements.store2');
+
+    //route pour les infos sur le traitements
+    Route::get('dossiers/traitement','DossierController@infoTraitement')->name('dossiers.infosTraitement');
+
+    //route pour le pdf
+    Route::get('pdf/{dossier}', 'DossierController@pdfCreator')->name('dossier.pdf');
 
     ///////routes de l'admin
 
